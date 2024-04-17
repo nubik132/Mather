@@ -7,11 +7,24 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*" MaxWidth="300" MinWidth="150"/>
+            <ColumnDefinition Width="3" />
+            <ColumnDefinition Width="7*" />
+        </Grid.ColumnDefinitions>
 
-        <Button Content=""/>
-        <TextBox Text="" />
-        <Label Content=""/>
-        <GridSplitter Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center" Background="Black" HorizontalAlignment=""/>
-        
+        <ScrollViewer VerticalScrollBarVisibility="Auto"  ClipToBounds="True">
+            <StackPanel x:Name="StatesContainer">
+                <TreeView x:Name="StatesTreeView">
+                    <TreeViewItem Header="TitleTitleTitleTitleTitleTitleTitleTitleTitleTitle" Name="StateItem1">
+                        <TreeViewItem Header="Title 2">
+                            <TextBlock>Текст 1</TextBlock>
+                        </TreeViewItem>
+                    </TreeViewItem>
+                </TreeView>
+            </StackPanel>
+        </ScrollViewer>
+        <GridSplitter Width="3" Grid.Column="1" Background="#FF9C9C9C"/>
+        <FlowDocumentScrollViewer x:Name="DocumentViewer" Grid.Column="2"/>
     </Grid>
 </Window>
