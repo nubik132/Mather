@@ -9,7 +9,8 @@ using System.Windows.Documents;
 
 namespace MatherTest
 {
-    internal class AddTest
+    [TestClass]
+    public class AddTest
     {
         public FlowDocument document;
         public StateBranch branch;
