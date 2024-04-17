@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Blend for Visual Studio Version 17
+# Visual Studio Version 17
 VisualStudioVersion = 17.8.34309.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mather", "Mather\Mather.csproj", "{FC5698C2-1389-4AA2-B783-673D02284E29}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mather", "Mather\Mather.csproj", "{FC5698C2-1389-4AA2-B783-673D02284E29}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatherTest", "MatherTest\MatherTest.csproj", "{A7941F53-826B-4DE5-8BC4-334574E31EA5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{FC5698C2-1389-4AA2-B783-673D02284E29}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC5698C2-1389-4AA2-B783-673D02284E29}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC5698C2-1389-4AA2-B783-673D02284E29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7941F53-826B-4DE5-8BC4-334574E31EA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7941F53-826B-4DE5-8BC4-334574E31EA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7941F53-826B-4DE5-8BC4-334574E31EA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7941F53-826B-4DE5-8BC4-334574E31EA5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
