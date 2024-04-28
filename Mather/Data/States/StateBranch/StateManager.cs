@@ -12,17 +12,17 @@ namespace Mather.Data.States.StateBranch
 {
     public static class StateManager
     {
-        public static void Save(FlowDocument document, string path)
+        public static void Save(AbstractState state, string path)
         {
             using FileStream fs = File.Open(path, FileMode.Create);
 
-            XamlWriter.Save(document, fs);
+            XamlWriter.Save(state, fs);
         }
-        public static FlowDocument Load(string path)
+        public static AbstractState Load(string path)
         {
             using FileStream fs = File.Open(path, FileMode.Open);
 
-            FlowDocument? document = XamlReader.Load(fs) as FlowDocument;
+            AbstractState? document = XamlReader.Load(fs) as AbstractState;
             return document ?? throw new FileNotFoundException();
         }
     }

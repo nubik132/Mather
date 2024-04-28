@@ -14,8 +14,7 @@ namespace MatherTest
         StateBranch branch;
         State state;
         ObservableCollection<StateBranch> collection;
-        MainWindow window;
-        Mather.App app;
+        StudentWindow window;
         [TestInitialize]
         public void Init()
         {
@@ -24,9 +23,12 @@ namespace MatherTest
             state = new State();
             state.Header = "State 1";
             branch.Add(state);
+            window = new StudentWindow();
+            window.Show();
         }
 
-        [TestMethod]
+        [WpfTestMethod]
+        
         public void AddBranch()
         {
             collection.Add(branch);
@@ -34,21 +36,19 @@ namespace MatherTest
             window.LoadStates(collection);
             Assert.AreEqual(collection.AsEnumerable(), window.StatesTreeView.ItemsSource);
         }
-        [TestMethod]
+        [WpfTestMethod]
         public void AddStateAndBranch()
         {
             branch.Add(state);
             collection.Add(branch);
             window.LoadStates(collection);
             Assert.AreEqual(collection.AsEnumerable(), window.StatesTreeView.ItemsSource);
-
-
         }
 
         [TestCleanup]
         public void Cleanup()
         {
-            app.Shutdown();
+            window.Close();
         }
     }
 }
