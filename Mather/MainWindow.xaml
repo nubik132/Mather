@@ -19,7 +19,7 @@
 
         <ScrollViewer VerticalScrollBarVisibility="Auto"  ClipToBounds="True">
             <StackPanel x:Name="StatesContainer">
-                <TreeView x:Name="StatesTreeView">
+                <TreeView x:Name="StatesTreeView" x:FieldModifier="public" TreeViewItem.Selected="TreeViewItem_Selected">
                     <TreeView.ItemTemplate>
                         <HierarchicalDataTemplate ItemsSource="{Binding Path=States}">
                             <TextBlock Text="{Binding Header}"/>
