@@ -1,4 +1,5 @@
-﻿using Mather.Data.States.StateBranch;
+﻿using Mather.Authorization;
+using Mather.Data.States.StateBranch;
 using Microsoft.VisualBasic;
 using System.Collections.ObjectModel;
 using System.Text;
@@ -22,29 +23,31 @@ namespace Mather
         public MainWindow()
         {
             InitializeComponent();
-            var collection = new ObservableCollection<StateBranch>();
-            var branch = new StateBranch("Branch 1");
-            var state = new State();
-            state.Header = "State 1";
-            var state2 = new State("State 2", new FlowDocument(new Paragraph(new Run("Тут другой текст.\n Это ж другая статья!!!!"))));
-            branch.Add(state);
-            branch.Add(state2);
-            collection.Add(branch);
-            LoadStates(collection);
+            Profile profile = new Profile("t", "t", Profile.Type.Teacher);
+            profile.SaveProfile();
         }
 
-        public void LoadStates(ObservableCollection<StateBranch> collection)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            StatesTreeView.ItemsSource = collection;
-        }
-
-        private void TreeViewItem_Selected(object sender, RoutedEventArgs e)
-        {
-            if (sender is TreeView tree && tree.SelectedItem is State state)
+            string login = LoginBox.Text;
+            string password = PasswordBox.Text;
+            Profile? profile = Profile.CheckProfile(login, password);
+            if (profile == null)
             {
-                DocumentViewer.Document = state.Document;
+                return;
             }
-            e.Handled = true;
+            if (profile.GetProfileType() == Profile.Type.Student)
+            {
+                StudentWindow studentWindow = new StudentWindow();
+                studentWindow.Show();
+            }
+            else if (profile.GetProfileType() == Profile.Type.Teacher)
+            {
+                TeacherWindow teacherWindow = new TeacherWindow();
+                teacherWindow.Show();
+            }
+            this.Close();
         }
+
     }
 }
