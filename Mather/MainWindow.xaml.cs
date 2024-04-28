@@ -1,4 +1,7 @@
-﻿using System.Text;
+﻿using Mather.Data.States.StateBranch;
+using Microsoft.VisualBasic;
+using System.Collections.ObjectModel;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -19,6 +22,11 @@ namespace Mather
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void LoadStates(ObservableCollection<StateBranch> collection)
+        {
+            StatesTreeView.ItemsSource = collection;
         }
     }
 }

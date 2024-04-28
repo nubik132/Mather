@@ -1,10 +1,11 @@
-﻿using System.Windows.Documents;
+﻿using System.Collections.ObjectModel;
+using System.Windows.Documents;
 
 namespace Mather.Data.States.StateBranch
 {
     public class StateBranch : AbstractState
     {
-        public List<AbstractState> States;
+        public List<AbstractState> States { get; set; }
 
         public StateBranch() : base() { States = new List<AbstractState>(); Header = "Новая ветвь"; }
         public StateBranch(string header) : base(header)

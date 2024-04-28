@@ -4,8 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Mather"
+        xmlns:localStates="clr-namespace:Mather.Data.States.StateBranch"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <localStates:StateBranch x:Key="branch" Header="branch"/>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*" MaxWidth="300" MinWidth="150"/>
@@ -16,11 +20,11 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto"  ClipToBounds="True">
             <StackPanel x:Name="StatesContainer">
                 <TreeView x:Name="StatesTreeView">
-                    <TreeViewItem Header="TitleTitleTitleTitleTitleTitleTitleTitleTitleTitle" Name="StateItem1">
-                        <TreeViewItem Header="Title 2">
-                            <TextBlock>Текст 1</TextBlock>
-                        </TreeViewItem>
-                    </TreeViewItem>
+                    <TreeView.ItemTemplate>
+                        <HierarchicalDataTemplate ItemsSource="{Binding Path=States}">
+                            <TextBlock Text="{Binding Header}"/>
+                        </HierarchicalDataTemplate>
+                    </TreeView.ItemTemplate>
                 </TreeView>
             </StackPanel>
         </ScrollViewer>
