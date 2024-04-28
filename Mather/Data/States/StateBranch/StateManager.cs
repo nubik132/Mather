@@ -25,5 +25,20 @@ namespace Mather.Data.States.StateBranch
             AbstractState? document = XamlReader.Load(fs) as AbstractState;
             return document ?? throw new FileNotFoundException();
         }
+
+        public static void SaveProject(Project project, string path)
+        {
+            using FileStream fs = File.Open(path, FileMode.Create);
+
+            XamlWriter.Save(project, fs);
+        }
+
+        public static Project LoadProject(string path)
+        {
+            using FileStream fs = File.Open(path, FileMode.Open);
+
+            Project? document = XamlReader.Load(fs) as Project;
+            return document ?? throw new FileNotFoundException();
+        }
     }
 }

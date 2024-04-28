@@ -1,4 +1,6 @@
-﻿using Mather.Data.States.StateBranch;
+﻿using Mather.Data.States;
+using Mather.Data.States.StateBranch;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,12 +23,19 @@ namespace Mather
     /// </summary>
     public partial class TeacherWindow : Window
     {
-        ObservableCollection<StateBranch> states;
+        Project project;
         public TeacherWindow()
         {
             InitializeComponent();
-            states = new ObservableCollection<StateBranch>();
-            LoadStates(states);
+            project = new Project("Новый", new ObservableCollection<StateBranch>());
+            LoadStates(project.States);
+        }
+
+        public TeacherWindow(Project project)
+        {
+            InitializeComponent();
+            this.project = project;
+            LoadStates(this.project.States);
         }
 
         public void LoadStates(ObservableCollection<StateBranch> collection)
@@ -46,6 +55,8 @@ namespace Mather
         private void NewGroupStateButton_Click(object sender, RoutedEventArgs e)
         {
             AddState(new StateBranch());
+            var newCollection = new ObservableCollection<StateBranch>(project.States);
+            LoadStates(newCollection);
         }
 
         private void NewStateButton_Click(object sender, RoutedEventArgs e)
@@ -63,7 +74,7 @@ namespace Mather
             else if(StatesTreeView.SelectedItem == null && state is StateBranch branch)
             {
                 SetStateHeader();
-                states.Add(branch);
+                project.States.Add(branch);
             }
 
             void SetStateHeader()
@@ -82,11 +93,11 @@ namespace Mather
             AbstractState searchedState = StatesTreeView.SelectedItem as AbstractState;
             if (StatesTreeView.SelectedItem != null)
             {
-                foreach(StateBranch branch in states)
+                foreach(StateBranch branch in project.States)
                 {
                     if (searchedState == branch)
                     {
-                        states.Remove(branch);
+                        project.States.Remove(branch);
                         return;
                     }
                     Cycle(branch);
@@ -107,6 +118,37 @@ namespace Mather
                         Cycle(stateBranch);
                     }
                 }
+            }
+        }
+
+        private void NewProjectMenu_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog dialog = new SaveFileDialog();
+            if (dialog.ShowDialog() == true)
+            {
+                project = new Project();
+                StateManager.SaveProject(project, dialog.FileName);
+                LoadStates(project.States);
+            }
+        }
+
+        private void OpenProjectMenu_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            if (dialog.ShowDialog() == true)
+            {
+                project = StateManager.LoadProject(dialog.FileName);
+                LoadStates(project.States);
+            }
+        }
+
+        private void SaveProjectMenu_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog dialog = new SaveFileDialog();
+            if (dialog.ShowDialog() == true)
+            {
+                StateManager.SaveProject(project, dialog.FileName);
+                LoadStates(project.States);
             }
         }
     }
