@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Documents;
 
-namespace Mather.Data.States.StateBranch
+namespace Mather.Data.States
 {
     public class State : AbstractState
     {

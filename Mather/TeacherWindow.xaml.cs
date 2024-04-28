@@ -1,5 +1,5 @@
 ﻿using Mather.Data.States;
-using Mather.Data.States.StateBranch;
+using Mather.Data.States;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -24,10 +24,11 @@ namespace Mather
     public partial class TeacherWindow : Window
     {
         Project project;
+        
         public TeacherWindow()
         {
             InitializeComponent();
-            project = new Project("Новый", new ObservableCollection<StateBranch>());
+            project = new Project("Новый", new ObservableCollection<StateBranch>() { new StateBranch() });
             LoadStates(project.States);
         }
 
@@ -40,7 +41,7 @@ namespace Mather
 
         public void LoadStates(ObservableCollection<StateBranch> collection)
         {
-            StatesTreeView.ItemsSource = collection;
+            StatesTreeView.ItemsSource = project.States;
         }
 
         private void TreeViewItem_Selected(object sender, RoutedEventArgs e)

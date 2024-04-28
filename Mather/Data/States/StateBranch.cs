@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Documents;
 
-namespace Mather.Data.States.StateBranch
+namespace Mather.Data.States
 {
     public class StateBranch : AbstractState
     {

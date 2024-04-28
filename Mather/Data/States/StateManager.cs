@@ -8,7 +8,7 @@ using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Markup;
 
-namespace Mather.Data.States.StateBranch
+namespace Mather.Data.States
 {
     public static class StateManager
     {
