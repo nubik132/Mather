@@ -27,7 +27,7 @@ namespace Mather
 
         public void LoadStates(ObservableCollection<StateBranch> collection)
         {
-            StatesTreeView.ItemsSource = collection;
+            StatesTreeView.ItemsSource = project.States;
         }
 
         private void TreeViewItem_Selected(object sender, RoutedEventArgs e)
