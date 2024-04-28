@@ -42,8 +42,6 @@ namespace Mather
         private void NewGroupStateButton_Click(object sender, RoutedEventArgs e)
         {
             AddState(new StateBranch());
-            var newCollection = new ObservableCollection<StateBranch>(project.States);
-            LoadStates(newCollection);
         }
 
         private void NewStateButton_Click(object sender, RoutedEventArgs e)
