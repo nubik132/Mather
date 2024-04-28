@@ -5,12 +5,12 @@ namespace Mather.Data.States.StateBranch
 {
     public class StateBranch : AbstractState
     {
-        public List<AbstractState> States { get; set; }
+        public ObservableCollection<AbstractState> States { get; set; }
 
-        public StateBranch() : base() { States = new List<AbstractState>(); Header = "Новая ветвь"; }
+        public StateBranch() : base() { States = new ObservableCollection<AbstractState>(); Header = "Новая ветвь"; }
         public StateBranch(string header) : base(header)
         {
-            States = new List<AbstractState>();
+            States = new ObservableCollection<AbstractState>();
         }
 
         public override void Add(AbstractState state)

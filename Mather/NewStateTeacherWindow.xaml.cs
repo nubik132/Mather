@@ -1,0 +1,34 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+
+namespace Mather
+{
+    /// <summary>
+    /// Логика взаимодействия для NewGroupTeacherWindow.xaml
+    /// </summary>
+    public partial class NewGroupTeacherWindow : Window
+    {
+        public string GroupName {  get; set; }
+        public NewGroupTeacherWindow()
+        {
+            InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            GroupName = NameBox.Text;
+            this.DialogResult = true;
+        }
+    }
+}
