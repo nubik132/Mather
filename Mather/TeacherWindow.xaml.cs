@@ -37,6 +37,7 @@ namespace Mather
             InitializeComponent();
             this.project = project;
             LoadStates(this.project.States);
+            DocumentEditor.Document = new FlowDocument();
         }
 
         public void LoadStates(ObservableCollection<StateBranch> collection)
@@ -48,7 +49,7 @@ namespace Mather
         {
             if (sender is TreeView tree && tree.SelectedItem is State state)
             {
-                DocumentViewer.Document = state.Document;
+                DocumentEditor.Document = state.Document;
             }
             e.Handled = true;
         }
@@ -56,8 +57,6 @@ namespace Mather
         private void NewGroupStateButton_Click(object sender, RoutedEventArgs e)
         {
             AddState(new StateBranch());
-            var newCollection = new ObservableCollection<StateBranch>(project.States);
-            LoadStates(newCollection);
         }
 
         private void NewStateButton_Click(object sender, RoutedEventArgs e)
@@ -130,6 +129,7 @@ namespace Mather
                 project = new Project();
                 StateManager.SaveProject(project, dialog.FileName);
                 LoadStates(project.States);
+
             }
         }
 
