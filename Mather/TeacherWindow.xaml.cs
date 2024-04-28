@@ -152,5 +152,48 @@ namespace Mather
                 LoadStates(project.States);
             }
         }
+
+        private void BoldButton_Click(object sender, RoutedEventArgs e)
+        {
+            var selection = DocumentEditor.Selection;
+            if (selection != null)
+            {
+                var currentWeight = selection.GetPropertyValue(TextElement.FontWeightProperty);
+                selection.ApplyPropertyValue(TextElement.FontWeightProperty,
+                    (currentWeight.Equals(FontWeights.Bold)) ? FontWeights.Normal : FontWeights.Bold);
+            }
+        }
+
+        private void ItalicButton_Click(object sender, RoutedEventArgs e)
+        {
+            var selection = DocumentEditor.Selection;
+            if (selection != null)
+            {
+                var currentStyle = selection.GetPropertyValue(TextElement.FontStyleProperty);
+                selection.ApplyPropertyValue(TextElement.FontStyleProperty,
+                    (currentStyle.Equals(FontStyles.Italic)) ? FontStyles.Normal : FontStyles.Italic);
+            }
+        }
+
+        private void UnderlineButton_Click(object sender, RoutedEventArgs e)
+        {
+            var selection = DocumentEditor.Selection;
+            if (selection != null)
+            {
+                var currentDecorations = selection.GetPropertyValue(Inline.TextDecorationsProperty);
+                TextDecorationCollection decorations = currentDecorations as TextDecorationCollection;
+                if (decorations != null && decorations.Contains(TextDecorations.Underline[0]))
+                {
+                    TextDecorationCollection newDecorations = new TextDecorationCollection(decorations);
+                    newDecorations.Remove(TextDecorations.Underline[0]);
+                    selection.ApplyPropertyValue(Inline.TextDecorationsProperty, newDecorations);
+                }
+                else
+                {
+                    selection.ApplyPropertyValue(Inline.TextDecorationsProperty, TextDecorations.Underline);
+                }
+            }
+        }
+
     }
 }
