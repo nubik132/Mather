@@ -1,18 +1,9 @@
 ﻿using Mather.Data.States;
-using System;
-using System.Collections.Generic;
+using Microsoft.Win32;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Mather
 {
@@ -21,18 +12,22 @@ namespace Mather
     /// </summary>
     public partial class StudentWindow : Window
     {
+        Project project;
         public StudentWindow()
         {
             InitializeComponent();
-            var collection = new ObservableCollection<StateBranch>();
-            var branch = new StateBranch("Branch 1");
-            var state = new State();
-            state.Header = "State 1";
-            var state2 = new State("State 2", new FlowDocument(new Paragraph(new Run("Тут другой текст.\n Это ж другая статья!!!!"))));
-            branch.Add(state);
-            branch.Add(state2);
-            collection.Add(branch);
-            LoadStates(collection);
+            project = new Project();
+            LoadProject();
+        }
+
+        private void LoadProject()
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            if (dialog.ShowDialog() == true)
+            {
+                project = StateManager.LoadProject(dialog.FileName);
+                LoadStates(project.States);
+            }
         }
 
         public void LoadStates(ObservableCollection<StateBranch> collection)
@@ -47,6 +42,11 @@ namespace Mather
                 DocumentViewer.Document = state.Document;
             }
             e.Handled = true;
+        }
+
+        private void OpenProjectMenu_Click(object sender, RoutedEventArgs e)
+        {
+            LoadProject();
         }
     }
 }

@@ -1,8 +1,11 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Documents;
+using System.Xml.Serialization;
 
 namespace Mather.Data.States
 {
+    [Serializable]
+    [XmlInclude(typeof(State))]
     public class StateBranch : AbstractState
     {
         public ObservableCollection<AbstractState> States { get; set; }

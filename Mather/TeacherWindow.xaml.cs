@@ -1,20 +1,9 @@
 ﻿using Mather.Data.States;
-using Mather.Data.States;
 using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Mather
 {
@@ -24,7 +13,7 @@ namespace Mather
     public partial class TeacherWindow : Window
     {
         Project project;
-        
+
         public TeacherWindow()
         {
             InitializeComponent();
@@ -66,12 +55,12 @@ namespace Mather
 
         private void AddState(AbstractState state)
         {
-            if(StatesTreeView.SelectedItem is StateBranch selectedBranch)
+            if (StatesTreeView.SelectedItem is StateBranch selectedBranch)
             {
                 SetStateHeader();
                 selectedBranch.Add(state);
             }
-            else if(StatesTreeView.SelectedItem == null && state is StateBranch branch)
+            else if (StatesTreeView.SelectedItem == null && state is StateBranch branch)
             {
                 SetStateHeader();
                 project.States.Add(branch);
@@ -93,7 +82,7 @@ namespace Mather
             AbstractState searchedState = StatesTreeView.SelectedItem as AbstractState;
             if (StatesTreeView.SelectedItem != null)
             {
-                foreach(StateBranch branch in project.States)
+                foreach (StateBranch branch in project.States)
                 {
                     if (searchedState == branch)
                     {
@@ -194,6 +183,5 @@ namespace Mather
                 }
             }
         }
-
     }
 }
