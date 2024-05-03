@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Mather.Authorization.Profile">
+    <Position X="11.75" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="Mather.Authorization.Profile.Type" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Authorization\Profile.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAgAAAAAIAAAAAAABAAACAAAQAAEAACA=</HashCode>
+      <FileName>Authorization\Profile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Mather.Data.States.AbstractState">
+    <Position X="10" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAIAAAAAAAAAAEAAAAAABAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\States\AbstractState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Mather.Data.States.Project">
+    <Position X="7.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Data\States\Project.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Mather.Data.States.State">
+    <Position X="9.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAEAAAAAABAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Data\States\State.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Mather.Data.States.StateBranch">
+    <Position X="7.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAEAAAAAABAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Data\States\StateBranch.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Mather.Data.States.StateManager">
+    <Position X="7.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgIAAAAAAAAAAAAACAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Data\States\StateManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Mather.App" Collapsed="true">
+    <Position X="18.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Mather.MainWindow" BaseTypeListCollapsed="true">
+    <Position X="13.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Mather.NewGroupTeacherWindow" BaseTypeListCollapsed="true">
+    <Position X="13.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>NewStateTeacherWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Mather.StudentWindow" BaseTypeListCollapsed="true">
+    <Position X="13.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAAAAAAAAAAAgAAAAQAQAgAAAAAAA=</HashCode>
+      <FileName>StudentWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Mather.TeacherWindow" BaseTypeListCollapsed="true">
+    <Position X="15.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEQAAAAAAAAAEAAABCAAAgAAgBAAAQAQAAABAACCA=</HashCode>
+      <FileName>TeacherWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
