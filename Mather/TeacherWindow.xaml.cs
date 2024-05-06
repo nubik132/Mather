@@ -14,24 +14,20 @@ namespace Mather
     {
         Project project;
 
-        public TeacherWindow()
-        {
-            InitializeComponent();
-            project = new Project("Новый", new ObservableCollection<StateBranch>() { new StateBranch() });
-            LoadStates(project.States);
-        }
+        public TeacherWindow() : this(new Project()) { }
 
         public TeacherWindow(Project project)
         {
             InitializeComponent();
             this.project = project;
+            this.Title = project.Name;
             LoadStates(this.project.States);
-            DocumentEditor.Document = new FlowDocument();
+            //DocumentEditor.Document = new FlowDocument();
         }
 
         public void LoadStates(ObservableCollection<StateBranch> collection)
         {
-            StatesTreeView.ItemsSource = project.States;
+            StatesTreeView.ItemsSource = collection;
         }
 
         private void TreeViewItem_Selected(object sender, RoutedEventArgs e)
@@ -79,8 +75,8 @@ namespace Mather
 
         private void DeleteStateButton_Click(object sender, RoutedEventArgs e)
         {
-            AbstractState searchedState = StatesTreeView.SelectedItem as AbstractState;
-            if (StatesTreeView.SelectedItem != null)
+            AbstractState? searchedState = StatesTreeView.SelectedItem as AbstractState;
+            if (StatesTreeView?.SelectedItem != null)
             {
                 foreach (StateBranch branch in project.States)
                 {

@@ -21,7 +21,7 @@
             <TreeView x:Name="StatesTreeView" x:FieldModifier="public" TreeViewItem.Selected="TreeViewItem_Selected" >
                 <TreeView.ItemTemplate>
                     <HierarchicalDataTemplate ItemsSource="{Binding Path=States}">
-                        <TextBlock Text="{Binding Header}"/>
+                        <TextBlock Text="{Binding Header}" HorizontalAlignment="Stretch" Width="150" Cursor="Hand" TextWrapping="Wrap"/>
                     </HierarchicalDataTemplate>
                 </TreeView.ItemTemplate>
             </TreeView>

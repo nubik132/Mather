@@ -3,7 +3,6 @@ using Microsoft.Win32;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 
 namespace Mather
 {
@@ -12,22 +11,26 @@ namespace Mather
     /// </summary>
     public partial class StudentWindow : Window
     {
-        Project project;
-        public StudentWindow()
+        public Project project;
+        public StudentWindow() : this(LoadProject()) { }
+
+        public StudentWindow(Project project)
         {
             InitializeComponent();
-            project = new Project();
-            LoadProject();
+            this.project = project;
+            LoadStates(this.project.States);
         }
 
-        private void LoadProject()
+        private static Project LoadProject()
         {
             OpenFileDialog dialog = new OpenFileDialog();
             if (dialog.ShowDialog() == true)
             {
+                Project project;
                 project = StateManager.LoadProject(dialog.FileName);
-                LoadStates(project.States);
+                return project;
             }
+            throw new Exception("Не удалось загрузить проект");
         }
 
         public void LoadStates(ObservableCollection<StateBranch> collection)
