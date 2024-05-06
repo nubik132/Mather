@@ -9,6 +9,7 @@ namespace Mather.Data.Tasks
 {
     public abstract class Task : ITaskElement
     {
+        public static readonly double MAX_MARK = 10;
         public FlowDocument Document { get; set; }
         public abstract double GetResult();
     }
