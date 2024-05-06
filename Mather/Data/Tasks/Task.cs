@@ -1,0 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Documents;
+
+namespace Mather.Data.Tasks
+{
+    public abstract class Task : ITaskElement
+    {
+        public FlowDocument Document { get; set; }
+        public abstract double GetResult();
+    }
+}
