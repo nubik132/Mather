@@ -10,7 +10,7 @@ using System.Windows.Documents;
 namespace MatherTest
 {
     [TestClass]
-    public class AddTest
+    public class StateCompositionTest
     {
         public FlowDocument document;
         public StateBranch branch;
