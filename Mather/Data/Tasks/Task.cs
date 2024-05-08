@@ -11,6 +11,7 @@ namespace Mather.Data.Tasks
     {
         public static readonly double MAX_MARK = 10;
         public FlowDocument Document { get; set; }
+        public string Name { get; set; }
         public abstract double GetResult();
     }
 }

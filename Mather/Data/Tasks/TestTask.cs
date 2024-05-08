@@ -11,21 +11,24 @@ namespace Mather.Data.Tasks
 {
     public class TestTask : Task
     {
-        private ObservableCollection<TestTaskElement> checks;
+        public ObservableCollection<TestTaskElement> Checks { get; set; }
         public TestTask() : this(
             new FlowDocument(new Paragraph(new Run("Новое тестовое задание"))), 
             new ObservableCollection<TestTaskElement>() { new TestTaskElement() }
-            ) { }
-        public TestTask(FlowDocument document, ObservableCollection<TestTaskElement> checks) 
+            ) 
+        {
+            Name = "Тестовое задание";
+        }
+        public TestTask(FlowDocument document, ObservableCollection<TestTaskElement> checks, string name = "Тестовое задание") 
         {
             Document = document;
-            this.checks = checks;
+            Checks = checks;
         }
 
         public override double GetResult()
         {
-            double sum = checks.Sum((mark) => mark.GetResult());
-            double max = checks.Count * MAX_MARK;
+            double sum = Checks.Sum((mark) => mark.GetResult());
+            double max = Checks.Count * MAX_MARK;
             return sum / max;
         }
     }

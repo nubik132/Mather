@@ -1,9 +1,11 @@
 ﻿using Mather.Data.States;
+using Mather.Data.Tasks;
 using Microsoft.Win32;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using Task = Mather.Data.Tasks.Task;
 
 namespace Mather
 {
@@ -22,12 +24,22 @@ namespace Mather
             this.project = project;
             this.Title = project.Name;
             LoadStates(this.project.States);
-            //DocumentEditor.Document = new FlowDocument();
+
+            Task task = new TestTask();
+            LoadStates(new ObservableCollection<StateBranch>() {
+                new StateBranch()
+                {
+                    States = new ObservableCollection<AbstractState>()
+                    {
+                        new TaskState(new ObservableCollection<Task>() { task })
+                    }
+                }
+            });
         }
 
         public void LoadStates(ObservableCollection<StateBranch> collection)
         {
-            StatesTreeView.ItemsSource = project.States;
+            StatesTreeView.ItemsSource = collection;
         }
 
         private void TreeViewItem_Selected(object sender, RoutedEventArgs e)
