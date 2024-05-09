@@ -24,17 +24,6 @@ namespace Mather
             this.project = project;
             this.Title = project.Name;
             LoadStates(this.project.States);
-
-            Task task = new TestTask();
-            LoadStates(new ObservableCollection<StateBranch>() {
-                new StateBranch()
-                {
-                    States = new ObservableCollection<AbstractState>()
-                    {
-                        new TaskState(new ObservableCollection<Task>() { task })
-                    }
-                }
-            });
         }
 
         public void LoadStates(ObservableCollection<StateBranch> collection)

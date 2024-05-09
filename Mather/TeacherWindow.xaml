@@ -6,8 +6,24 @@
         xmlns:local="clr-namespace:Mather"
         xmlns:states="clr-namespace:Mather.Data.States"
         xmlns:tasks="clr-namespace:Mather.Data.Tasks"
+        xmlns:data="clr-namespace:Mather.Data"
         mc:Ignorable="d"
         Title="TeacherWindow" Height="450" Width="800">
+    <Window.Resources>
+        <HierarchicalDataTemplate  x:Key="AbstractStateTemplate" DataType="{x:Type states:AbstractState}" ItemsSource="{Binding States}">
+            <TextBlock Text="{Binding Header}"/>
+        </HierarchicalDataTemplate>
+        <HierarchicalDataTemplate x:Key="TaskTemplate" DataType="{x:Type states:TaskState}" ItemsSource="{Binding Tasks}">
+            <TextBlock Text="{Binding Header}" />
+            <HierarchicalDataTemplate.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}" />
+                </DataTemplate>
+            </HierarchicalDataTemplate.ItemTemplate>
+        </HierarchicalDataTemplate>
+        <data:StateTaskSelector x:Key="TemplateSelector" AbstractStateTemplate="{StaticResource AbstractStateTemplate}" TaskTemplate="{StaticResource TaskTemplate}"/>
+
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width=".3*" MinWidth="180"/>
@@ -20,16 +36,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="2">
-            <TreeView x:Name="StatesTreeView" x:FieldModifier="public" TreeViewItem.Selected="TreeViewItem_Selected" >
-                <TreeView.Resources>
-                    <HierarchicalDataTemplate ItemsSource="{Binding Path=States}" DataType="{x:Type states:AbstractState}">
-                        <TextBlock Text="{Binding Header}" HorizontalAlignment="Stretch" Width="150" Cursor="Hand" TextWrapping="Wrap"/>
-                    </HierarchicalDataTemplate>
-                    <HierarchicalDataTemplate ItemsSource="{Binding Path=Checks}" DataType="{x:Type tasks:Task}">
-                        <TextBlock Text="{Binding Name}" HorizontalAlignment="Stretch" Width="150" Cursor="Hand" TextWrapping="Wrap"/>
-                    </HierarchicalDataTemplate>
-                </TreeView.Resources>
-            </TreeView>
+            <TreeView ItemTemplateSelector="{StaticResource TemplateSelector}" x:Name="StatesTreeView" x:FieldModifier="public"/>
         </ScrollViewer>
         <GridSplitter Width="3" Grid.Column="1" Background="#FF9C9C9C" Grid.RowSpan="2" Grid.Row="1" HorizontalAlignment="Center"/>
         <RichTextBox x:Name="DocumentEditor" Grid.Column="2" Grid.Row="2"/>
