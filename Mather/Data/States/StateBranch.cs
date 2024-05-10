@@ -10,7 +10,7 @@ namespace Mather.Data.States
     {
         public ObservableCollection<AbstractState> States { get; set; }
 
-        public StateBranch() : base() { States = new ObservableCollection<AbstractState>(); Header = "Новая ветвь"; }
+        public StateBranch() : base() { States = new ObservableCollection<AbstractState>(); }
         public StateBranch(string header) : base(header)
         {
             States = new ObservableCollection<AbstractState>();
