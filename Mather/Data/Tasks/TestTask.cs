@@ -14,7 +14,7 @@ namespace Mather.Data.Tasks
         public ObservableCollection<TestTaskElement> Checks { get; set; }
         public TestTask() : this(
             new FlowDocument(new Paragraph(new Run("Новое тестовое задание"))), 
-            new ObservableCollection<TestTaskElement>() { new TestTaskElement() }
+            new ObservableCollection<TestTaskElement>()
             ) 
         {
             Name = "Тестовое задание";
