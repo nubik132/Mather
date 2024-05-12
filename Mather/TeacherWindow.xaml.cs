@@ -24,33 +24,6 @@ namespace Mather
             InitializeComponent();
             this.project = project;
             this.Title = project.Name;
-            project.States = new ObservableCollection<StateBranch> 
-            {
-                new StateBranch() { 
-                    States = new ObservableCollection<AbstractState>() 
-                    {
-                        new TaskState(new ObservableCollection<Task>() 
-                        {
-                            new TestTask(),
-                            new TestTask(
-                                new FlowDocument(new Paragraph(new Run("Ваще новое задание"))), 
-                                new ObservableCollection<TestTaskElement>()
-                                {
-                                    new TestTaskElement(true, text : "Ставь тут Да"),
-                                    new TestTaskElement(false, text : "Ставь тут Нет"),
-                                    new TestTaskElement(true, text : "Ставь тут Да"),
-                                },
-                                "Суперновое задание"),
-                            new TestTask(),
-                        }),
-                        new TaskState(new ObservableCollection<Task>()
-                        {
-                            new TestTask(),
-                            new TestTask(),
-                        })
-                    } 
-                } 
-            };
             LoadStates(this.project.States);
         }
 
