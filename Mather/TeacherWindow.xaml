@@ -60,6 +60,9 @@
                 <MenuItem Header="Открыть проект" x:Name="OpenProjectMenu" Click="OpenProjectMenu_Click"/>
                 <MenuItem Header="Сохранить проект" x:Name="SaveProjectMenu" Click="SaveProjectMenu_Click"/>
             </MenuItem>
+            <MenuItem Header="Задание">
+                <MenuItem Header="Предпросмотр" x:Name="OpenTaskMenu" Click="OpenTaskMenu_Click"/>
+            </MenuItem>
         </Menu>
     </Grid>
 </Window>

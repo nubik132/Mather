@@ -2,6 +2,7 @@
 using Mather.Data.Tasks;
 using Microsoft.Win32;
 using System.Collections.ObjectModel;
+using System.Reflection.Metadata;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -23,6 +24,33 @@ namespace Mather
             InitializeComponent();
             this.project = project;
             this.Title = project.Name;
+            project.States = new ObservableCollection<StateBranch> 
+            {
+                new StateBranch() { 
+                    States = new ObservableCollection<AbstractState>() 
+                    {
+                        new TaskState(new ObservableCollection<Task>() 
+                        {
+                            new TestTask(),
+                            new TestTask(
+                                new FlowDocument(new Paragraph(new Run("Ваще новое задание"))), 
+                                new ObservableCollection<TestTaskElement>()
+                                {
+                                    new TestTaskElement(true, text : "Ставь тут Да"),
+                                    new TestTaskElement(false, text : "Ставь тут Нет"),
+                                    new TestTaskElement(true, text : "Ставь тут Да"),
+                                },
+                                "Суперновое задание"),
+                            new TestTask(),
+                        }),
+                        new TaskState(new ObservableCollection<Task>()
+                        {
+                            new TestTask(),
+                            new TestTask(),
+                        })
+                    } 
+                } 
+            };
             LoadStates(this.project.States);
         }
 
@@ -33,9 +61,13 @@ namespace Mather
 
         private void TreeViewItem_Selected(object sender, RoutedEventArgs e)
         {
-            if (sender is TreeView tree && tree.SelectedItem is State state)
+            if (StatesTreeView.SelectedItem is State state)
             {
                 DocumentEditor.Document = state.Document;
+            }
+            else if (StatesTreeView.SelectedItem is Task task)
+            {
+                DocumentEditor.Document = task.Document;
             }
             e.Handled = true;
         }
@@ -179,6 +211,17 @@ namespace Mather
                     selection.ApplyPropertyValue(Inline.TextDecorationsProperty, TextDecorations.Underline);
                 }
             }
+        }
+
+        private void OpenTaskMenu_Click(object sender, RoutedEventArgs e)
+        {
+            if (StatesTreeView.SelectedItem is TaskState taskState)
+            {
+                DocumentEditor.Document = new FlowDocument();
+                TaskWindow window = new TaskWindow(taskState);
+                window.ShowDialog();
+            }
+
         }
     }
 }
