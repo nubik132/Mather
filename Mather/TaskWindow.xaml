@@ -8,8 +8,8 @@
         mc:Ignorable="d"
         Title="TaskWindow" Height="450" Width="800" Closing="Window_Closing">
     <Window.Resources>
-        <DataTemplate DataType="{x:Type states:TestTask}">
-            
+        <DataTemplate DataType="{x:Type states:TestTaskElement}">
+            <CheckBox Content="{Binding Text}" IsChecked="{Binding Check, Mode=TwoWay}"></CheckBox>
         </DataTemplate>
     </Window.Resources>
     <Grid>
@@ -20,7 +20,6 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="24" />
-            <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
         <ScrollViewer VerticalScrollBarVisibility="Auto"  ClipToBounds="True" Grid.Row="1" Grid.RowSpan="2">
