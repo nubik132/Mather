@@ -18,6 +18,12 @@ namespace Mather.Data.Tasks
             Check = false;
             Text = text;
         }
+        public TestTaskElement()
+        {
+            Answer = true;
+            Check = false;
+            Text = "Задание";
+        }
         public bool Check
         {
             get { return (bool)GetValue(CheckProperty); }

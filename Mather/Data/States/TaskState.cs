@@ -6,13 +6,14 @@ namespace Mather.Data.States
     public class TaskState: AbstractState
     {
         public ObservableCollection<Task> Tasks { get; set; }
-        public TaskState(ObservableCollection<Task> tasks): this()
+        public TaskState(ObservableCollection<Task> tasks, string header): base(header)
         {
             Tasks = tasks;
         }
-        private TaskState()
+        public TaskState()
         {
             Header = "Задание";
+            Tasks = new ObservableCollection<Task>();
         }
 
         public override void Add(AbstractState state)
