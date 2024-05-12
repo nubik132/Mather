@@ -48,6 +48,12 @@ namespace Mather
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            var result = MessageBox.Show("Вы дейстивительно хотите завершить выполнение задания?\n\nОтветы нельзя будет изменить.", "Выйти?", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if(result == MessageBoxResult.No)
+            {
+                e.Cancel = true;
+                return;
+            }
             DocumentViewer.Document = new FlowDocument();
         }
 
