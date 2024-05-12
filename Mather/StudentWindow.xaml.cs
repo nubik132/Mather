@@ -3,6 +3,7 @@ using Microsoft.Win32;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 
 namespace Mather
 {
@@ -40,9 +41,19 @@ namespace Mather
 
         private void TreeViewItem_Selected(object sender, RoutedEventArgs e)
         {
-            if (sender is TreeView tree && tree.SelectedItem is State state)
+            if (StatesTreeView.SelectedItem is State state)
             {
                 DocumentViewer.Document = state.Document;
+            }
+            else if (StatesTreeView.SelectedItem is TaskState taskState)
+            {
+                var result = MessageBox.Show("Начать выполнение задания?\nВы не сможете просматривать конспекты до завершения выполнения задания", "Начать задание?", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    DocumentViewer.Document = new FlowDocument();
+                    TaskWindow window = new TaskWindow(taskState);
+                    window.ShowDialog();
+                }
             }
             e.Handled = true;
         }
