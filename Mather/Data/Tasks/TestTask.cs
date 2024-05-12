@@ -23,13 +23,14 @@ namespace Mather.Data.Tasks
         {
             Document = document;
             Checks = checks;
+            Name = name;
         }
 
         public override double GetResult()
         {
             double sum = Checks.Sum((mark) => mark.GetResult());
             double max = Checks.Count * MAX_MARK;
-            return sum / max;
+            return Math.Round(sum / max * MAX_MARK, 2);
         }
     }
 }

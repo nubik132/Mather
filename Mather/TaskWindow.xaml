@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Mather"
         xmlns:states="clr-namespace:Mather.Data.Tasks"
         mc:Ignorable="d"
-        Title="TaskWindow" Height="450" Width="800">
+        Title="TaskWindow" Height="450" Width="800" Closing="Window_Closing">
     <Window.Resources>
         <DataTemplate DataType="{x:Type states:TestTask}">
             
@@ -26,14 +26,22 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto"  ClipToBounds="True" Grid.Row="1" Grid.RowSpan="2">
             <TreeView x:Name="StatesTreeView" x:FieldModifier="public" TreeViewItem.Selected="TreeViewItem_Selected" VerticalAlignment="Stretch">
                 <TreeView.ItemTemplate>
-                    <HierarchicalDataTemplate ItemsSource="{Binding Path=States}">
-                        <TextBlock Text="{Binding Header}"/>
-                    </HierarchicalDataTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}"/>
+                    </DataTemplate>
                 </TreeView.ItemTemplate>
             </TreeView>
         </ScrollViewer>
         <GridSplitter Width="3" Grid.Column="1" Background="#FF9C9C9C" Grid.RowSpan="3"/>
-        <FlowDocumentScrollViewer x:Name="DocumentViewer" Grid.Column="2" Grid.Row="1"/>
-        <ItemsControl ItemsSource="{Binding Task}"/>
+        <Grid Grid.Row="1" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="32" />
+            </Grid.RowDefinitions>
+            <FlowDocumentScrollViewer x:Name="DocumentViewer"/>
+            <ItemsControl x:Name="TaskControl" ItemsSource="{Binding Task}" Grid.Row="1"/>
+            <Button Content="Подсчитать" Grid.Row="2" Width="80" Height="24" HorizontalAlignment="Right" Margin="0 0 8 0" Click="Button_Click"/>
+        </Grid>
     </Grid>
 </Window>
