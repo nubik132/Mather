@@ -36,7 +36,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="2">
-            <TreeView ItemTemplateSelector="{StaticResource TemplateSelector}" x:Name="StatesTreeView" x:FieldModifier="public"/>
+            <TreeView ItemTemplateSelector="{StaticResource TemplateSelector}" x:Name="StatesTreeView" x:FieldModifier="public" TreeViewItem.Selected="TreeViewItem_Selected"/>
         </ScrollViewer>
         <GridSplitter Width="3" Grid.Column="1" Background="#FF9C9C9C" Grid.RowSpan="2" Grid.Row="1" HorizontalAlignment="Center"/>
         <RichTextBox x:Name="DocumentEditor" Grid.Column="2" Grid.Row="2"/>
