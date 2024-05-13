@@ -25,7 +25,7 @@ namespace MatherTest
                 {
                     States = new ObservableCollection<AbstractState>() 
                     { 
-                        new TaskState(new ObservableCollection<Task>() { task }) 
+                        new TaskState(new ObservableCollection<Task>() { task }, "TestTask") 
                     }
                 }
             });

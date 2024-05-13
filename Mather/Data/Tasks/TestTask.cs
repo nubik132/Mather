@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mather.Data.Logs;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -31,6 +32,16 @@ namespace Mather.Data.Tasks
             double sum = Checks.Sum((mark) => mark.GetResult());
             double max = Checks.Count * MAX_MARK;
             return Math.Round(sum / max * MAX_MARK, 2);
+        }
+
+        public override TaskLog GetLog()
+        {
+            List<LogElement> logs = new List<LogElement>();
+            foreach (var check in Checks)
+            {
+                logs.Add(check.GetLog());
+            }
+            return new TaskLog(logs);
         }
     }
 }

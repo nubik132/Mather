@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using System.Text;
+using System.Windows;
+using System.Windows.Media.Animation;
+using Mather.Data.Logs;
 
 namespace Mather.Data.Tasks
 {
@@ -33,6 +36,16 @@ namespace Mather.Data.Tasks
         public double GetResult()
         {
             return Check == Answer ? 10 : 0;
+        }
+
+        public LogElement GetLog()
+        {
+            return new LogElement(
+                Text,
+                Check.ToString(),
+                Answer.ToString(),
+                Check == Answer
+                );
         }
     }
 }

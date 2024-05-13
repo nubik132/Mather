@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Mather.Data.Tasks
 {
-    public interface ITaskElement: IResultable, ILogable
+    public interface IResultable
     {
+        public double GetResult();
     }
 }
