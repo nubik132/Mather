@@ -6,31 +6,17 @@ namespace Mather.Data.States
 {
     public static class StateManager
     {
-        public static void Save(AbstractState state, string path)
+        public static void Save<T>(T obj, string path)
         {
             using FileStream fs = File.Open(path, FileMode.Create);
-
-            XamlWriter.Save(state, fs);
+            XamlWriter.Save(obj, fs);
         }
-        public static AbstractState Load(string path)
+
+        public static T Load<T>(string path)
         {
             using FileStream fs = File.Open(path, FileMode.Open);
-
-            AbstractState? document = XamlReader.Load(fs) as AbstractState;
-            return document ?? throw new FileNotFoundException();
-        }
-
-        public static void SaveProject(Project project, string path)
-        {
-            using FileStream fs = File.Open(path, FileMode.Create);
-            XamlWriter.Save(project, fs);
-        }
-
-        public static Project LoadProject(string path)
-        {
-            using FileStream fs = File.Open(path, FileMode.Open);
-            Project? project = XamlReader.Load(fs) as Project;
-            return project ?? throw new FileNotFoundException();
+            T? obj = (T)XamlReader.Load(fs);
+            return obj ?? throw new FileNotFoundException();
         }
     }
 }

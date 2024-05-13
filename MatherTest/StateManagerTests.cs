@@ -31,18 +31,18 @@ namespace MatherTest
         public void TestSaveLoad()
         {
             StateManager.Save(branch, path);
-            var newState = StateManager.Load(path);
+            var newState = StateManager.Load<StateBranch>(path);
             Assert.IsTrue(newState != null);
         }
         [WpfTestMethod]
         public void TestSaveLoadInWindow()
         {
             StateManager.Save(branch, path);
-            var newState = StateManager.Load(path);
+            var newState = StateManager.Load<StateBranch>(path);
             Assert.IsTrue(newState != null);
             var collection = new ObservableCollection<StateBranch>
             {
-                (StateBranch)newState
+                newState
             };
             window.LoadStates(collection);
             window.Show();
@@ -56,8 +56,8 @@ namespace MatherTest
             {
                 branch
             });
-            StateManager.SaveProject(project, path);
-            var newProject = StateManager.LoadProject(path);
+            StateManager.Save(project, path);
+            var newProject = StateManager.Load<Project>(path);
             Assert.IsTrue(newProject != null);
         }
         [WpfTestMethod]
@@ -72,8 +72,8 @@ namespace MatherTest
             {
                 branch, newBranch
             });
-            StateManager.SaveProject(project, path);
-            var newProject = StateManager.LoadProject(path);
+            StateManager.Save(project, path);
+            var newProject = StateManager.Load<Project>(path);
             Assert.AreEqual(newProject.Name, project.Name);
             Assert.AreEqual(branch.Header, newProject.States[0].Header);
             Assert.AreEqual(newBranch.Header, newProject.States[1].Header);
@@ -98,8 +98,8 @@ namespace MatherTest
             {
                 branch, newBranch
             });
-            StateManager.SaveProject(project, path);
-            var newProject = StateManager.LoadProject(path);
+            StateManager.Save(project, path);
+            var newProject = StateManager.Load<Project>(path);
             Assert.AreEqual(newProject.Name, project.Name);
             Assert.AreEqual(branch.Header, newProject.States[0].Header);
             Assert.AreEqual(newBranch.Header, newProject.States[1].Header);

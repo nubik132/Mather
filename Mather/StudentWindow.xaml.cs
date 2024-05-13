@@ -27,8 +27,7 @@ namespace Mather
             OpenFileDialog dialog = new OpenFileDialog();
             if (dialog.ShowDialog() == true)
             {
-                Project project;
-                project = StateManager.LoadProject(dialog.FileName);
+                Project project = StateManager.Load<Project>(dialog.FileName);
                 return project;
             }
             throw new Exception("Не удалось загрузить проект");
