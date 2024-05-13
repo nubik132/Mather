@@ -34,7 +34,7 @@ namespace MatherTest
         
         public void LoadfileStudent()
         {
-            StateManager.Save(project, "");
+            XamlManager.Save(project, "");
         }
         [WpfTestMethod]
         public void ShowProject()

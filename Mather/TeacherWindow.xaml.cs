@@ -118,7 +118,7 @@ namespace Mather
             if (dialog.ShowDialog() == true)
             {
                 project = new Project();
-                StateManager.Save(project, dialog.FileName);
+                XamlManager.Save(project, dialog.FileName);
                 LoadStates(project.States);
 
             }
@@ -129,7 +129,7 @@ namespace Mather
             OpenFileDialog dialog = new OpenFileDialog();
             if (dialog.ShowDialog() == true)
             {
-                project = StateManager.Load<Project>(dialog.FileName);
+                project = XamlManager.Load<Project>(dialog.FileName);
                 LoadStates(project.States);
             }
         }
@@ -139,7 +139,7 @@ namespace Mather
             SaveFileDialog dialog = new SaveFileDialog();
             if (dialog.ShowDialog() == true)
             {
-                StateManager.Save(project, dialog.FileName);
+                XamlManager.Save(project, dialog.FileName);
                 LoadStates(project.States);
             }
         }

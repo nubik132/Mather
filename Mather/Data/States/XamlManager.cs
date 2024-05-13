@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 
 namespace Mather.Data.States
 {
-    public static class StateManager
+    public static class XamlManager
     {
         public static void Save<T>(T obj, string path)
         {
