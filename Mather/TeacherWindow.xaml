@@ -63,6 +63,9 @@
             <MenuItem Header="Задание">
                 <MenuItem Header="Предпросмотр" x:Name="OpenTaskMenu" Click="OpenTaskMenu_Click"/>
             </MenuItem>
+            <MenuItem Header="Отчёты">
+                <MenuItem Header="Открыть" x:Name="OpenLogMenu" Click="OpenLogMenu_Click"/>
+            </MenuItem>
         </Menu>
     </Grid>
 </Window>

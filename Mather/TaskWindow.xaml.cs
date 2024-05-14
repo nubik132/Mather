@@ -2,6 +2,7 @@
 using Mather.Data.Tasks;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -68,6 +69,7 @@ namespace Mather
             //MessageBox.Show(CalculateResult().ToString());
             IsEnd = true;
             ShowResult();
+            SaveLog();
             this.Close();
         }
         private void ShowResult()
@@ -80,6 +82,27 @@ namespace Mather
         private double CalculateResult()
         {
             return Math.Round(Tasks.Sum(task => task.GetResult()) / Tasks.Count, 2);
+        }
+
+        private void SaveLog()
+        {
+            string path = Environment.ExpandEnvironmentVariables(@"%appdata%\Mather\Logs");
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            FlowDocument document = new FlowDocument();
+            foreach (var task in Tasks)
+            {
+                document.Blocks.Add(task.GetLog().ToParagraph());
+            }
+            string fileName =
+                "Login " //TODO: add login 
+                + this.Title // task name 
+                + " " 
+                + DateTime.Now.ToString("d-M-yyyy H-m-s")
+                + ".xlg"; //Xaml LoG
+            XamlManager.Save(document, Path.Combine(path, fileName));
         }
     }
 }

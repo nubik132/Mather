@@ -18,6 +18,10 @@ namespace Mather.Data.Logs
         {
             Logs = new ObservableCollection<LogElement>(logs);
         }
+        public TaskLog()
+        {
+            Logs = new ObservableCollection<LogElement>();
+        }
         public Paragraph ToParagraph()
         {
             Paragraph paragraph = new Paragraph();

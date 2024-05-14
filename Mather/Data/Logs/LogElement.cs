@@ -33,7 +33,7 @@ namespace Mather.Data.Logs
             builder.Append(Text);
             builder.Append(": ");
             builder.Append(Answer);
-            builder.Append('(');
+            builder.Append(" (");
             builder.Append(IsRight ? "Верно" : "Неверно");
             builder.Append(')');
             if (!IsRight)

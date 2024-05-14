@@ -42,8 +42,8 @@ namespace Mather.Data.Tasks
         {
             return new LogElement(
                 Text,
-                Check.ToString(),
-                Answer.ToString(),
+                Check ? "Да" : "Нет",
+                Answer ? "Верно" : "Неверно",
                 Check == Answer
                 );
         }

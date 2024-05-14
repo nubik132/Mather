@@ -2,6 +2,7 @@
 using Mather.Data.Tasks;
 using Microsoft.Win32;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Reflection.Metadata;
 using System.Windows;
 using System.Windows.Controls;
@@ -195,6 +196,26 @@ namespace Mather
                 window.ShowDialog();
             }
 
+        }
+
+        private void OpenLogMenu_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new OpenFileDialog();
+            //dialog.Filter = ".xlg";
+            dialog.DefaultExt = "xlg";
+            string path = Environment.ExpandEnvironmentVariables(@"%appdata%\Mather\Logs");
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            dialog.InitialDirectory = path;
+            var dialogContent = dialog.ShowDialog();
+            if (dialogContent != null && dialogContent == true)
+            {
+                FlowDocument document = XamlManager.Load<FlowDocument>(dialog.FileName);
+                LogWindow window = new LogWindow(document);   
+                window.ShowDialog();
+            }
         }
     }
 }
