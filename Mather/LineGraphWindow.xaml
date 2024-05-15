@@ -1,0 +1,21 @@
+﻿<Window x:Class="Mather.LineGraphWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Mather"
+        mc:Ignorable="d"
+        Title="LineGraphWindow" Height="450" Width="800" SizeChanged="Window_SizeChanged" >
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Menu VerticalAlignment="Top">
+            <MenuItem Header="Графики">
+                <MenuItem x:Name="AddLineMenu" Header="Линейный график" Click="AddLinePlot_Click" />
+            </MenuItem>
+        </Menu>
+        <Canvas x:Name="CoordinateCanvas" Background="White" Grid.Row="1" ClipToBounds="True"/>
+    </Grid>
+</Window>
