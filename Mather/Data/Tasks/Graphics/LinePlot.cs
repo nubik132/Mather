@@ -10,6 +10,7 @@ namespace Mather.Data.Tasks.Graphics
 {
     public class LinePlot : Plot
     {
+        bool IsHorizontal = false;
         public double K
         {
             get { return k; }
@@ -29,18 +30,17 @@ namespace Mather.Data.Tasks.Graphics
         {
             a = parent.ToRelative(a);
             b = parent.ToRelative(b);
-            if (double.IsNormal(a.X)
-                && double.IsNormal(a.Y)
-                && double.IsNormal(b.X)
-                && double.IsNormal(b.Y))
+            if (a.Y == b.Y)
+            {
+                IsHorizontal = true;
+                B = b.Y;
+            }
+            else
             {
                 K = (b.Y - a.Y) / (b.X - a.X);
                 B = a.Y - k * a.X;
             }
-            else
-            {
-                K = 1; B = 0;
-            }
+
         }
 
         public override Shape Draw(double x1, double x2)
@@ -63,6 +63,7 @@ namespace Mather.Data.Tasks.Graphics
         }
         public override double GetY(double x)
         {
+            if (IsHorizontal) return B;
             return K * x + B;
         }
     }
