@@ -6,6 +6,11 @@
              xmlns:local="clr-namespace:Mather.Data.Tasks.Graphics"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"  SizeChanged="Window_SizeChanged" >
+    <UserControl.Resources>
+        <ContextMenu x:Key="ShapeContextMenu">
+            <MenuItem x:Name="DeleteShapeContextMenu" Header="Удалить" Click="DeleteShapeContextMenu_Click" />
+        </ContextMenu>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />

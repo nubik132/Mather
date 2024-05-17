@@ -57,7 +57,7 @@ namespace Mather.Data.Tasks.Graphics
             Line line = new Line();
             line.X1 = x1; line.Y1 = abs1.Y;
             line.X2 = x2; line.Y2 = abs2.Y;
-            line.StrokeThickness = 1;
+            line.StrokeThickness = 3;
 
             return line;
         }

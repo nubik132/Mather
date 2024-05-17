@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -12,6 +13,7 @@ namespace Mather.Data.Tasks.Graphics
     public partial class PlotControl : UserControl
     {
         private CoordinatePlane _coordinatePlane;
+        public ObservableCollection<Shape> Shapes { get; private set; }
         private Point startPoint;
         private Point endPoint;
         private Ellipse _previewEllipse;
@@ -29,6 +31,7 @@ namespace Mather.Data.Tasks.Graphics
         public PlotControl()
         {
             InitializeComponent();
+            Shapes = new ObservableCollection<Shape>();
             _coordinatePlane = new CoordinatePlane();
             _coordinatePlane.Size = 25;
             _previewEllipse = new Ellipse
@@ -50,15 +53,19 @@ namespace Mather.Data.Tasks.Graphics
         }
         private void CoordinateCanvas_Loaded(object sender, RoutedEventArgs e)
         {
+            Render();
+        }
+        private void Render()
+        {
             RenderPlate();
             RenderPlots();
-
         }
         private void RenderPlate()
         {
             #region Prepare
             CoordinateCanvas.Children.Clear();
             CoordinateCanvas.Children.Add(_previewEllipse);
+            Shapes.Clear();
 
             Center = new Point(Math.Round(CoordinateCanvas.ActualWidth / 2), Math.Round(CoordinateCanvas.ActualHeight / 2));
             #endregion
@@ -113,13 +120,16 @@ namespace Mather.Data.Tasks.Graphics
                 Shape shape = plot.Draw(0, CoordinateCanvas.ActualWidth);
 
                 shape.Stroke = Brushes.LightPink;
+
+                shape.ContextMenu = Resources["ShapeContextMenu"] as ContextMenu;
                 CoordinateCanvas.Children.Add(shape);
+                Shapes.Add(shape);
             }
         }
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            CoordinateCanvas_Loaded(sender, e);
+            Render();
         }
         private void AddLinePlot_Click(object sender, RoutedEventArgs e)
         {
@@ -181,6 +191,19 @@ namespace Mather.Data.Tasks.Graphics
             Canvas.SetLeft(_previewEllipse, snappedPosition.X - _previewEllipse.Width / 2);
             Canvas.SetTop(_previewEllipse, snappedPosition.Y - _previewEllipse.Height / 2);
             _previewEllipse.Visibility = Visibility.Visible;
+        }
+
+        private void DeleteShapeContextMenu_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem &&
+                menuItem.Parent is ContextMenu contextMenu &&
+                contextMenu.PlacementTarget is Shape shape)
+            {
+                var index = Shapes.IndexOf(shape);
+                Shapes.RemoveAt(index);
+                _coordinatePlane.Plots.RemoveAt(index);
+            }
+            Render();
         }
     }
 }
