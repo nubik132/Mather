@@ -12,8 +12,18 @@ namespace Mather.Data.Tasks.Graphics
     /// </summary>
     public partial class PlotControl : UserControl
     {
-        private CoordinatePlane _coordinatePlane;
-        public ObservableCollection<Shape> Shapes { get; private set; }
+        public static readonly DependencyProperty CoordinatePlaneProperty;
+        static PlotControl()
+        {
+            CoordinatePlaneProperty = DependencyProperty.Register("CoordinatePlane", typeof(CoordinatePlane), typeof(PlotControl));
+        }
+        public CoordinatePlane CoordinatePlane
+        {
+            get { return (CoordinatePlane)GetValue(CoordinatePlaneProperty); }
+            set { SetValue(CoordinatePlaneProperty, value); }
+        }
+        public ObservableCollection<Shape> Shapes
+        { get; private set; }
         private Point startPoint;
         private Point endPoint;
         private Ellipse _previewEllipse;
@@ -24,7 +34,7 @@ namespace Mather.Data.Tasks.Graphics
             set
             {
                 _center = value;
-                _coordinatePlane.Center = value;
+                CoordinatePlane.Center = value;
             }
         }
         private Point _center;
@@ -32,8 +42,8 @@ namespace Mather.Data.Tasks.Graphics
         {
             InitializeComponent();
             Shapes = new ObservableCollection<Shape>();
-            _coordinatePlane = new CoordinatePlane();
-            _coordinatePlane.Size = 25;
+            CoordinatePlane = new CoordinatePlane();
+            CoordinatePlane.Size = 25;
             _previewEllipse = new Ellipse
             {
                 Width = 5,
@@ -70,13 +80,13 @@ namespace Mather.Data.Tasks.Graphics
             Center = new Point(Math.Round(CoordinateCanvas.ActualWidth / 2), Math.Round(CoordinateCanvas.ActualHeight / 2));
             #endregion
             #region Additional Axes
-            for (double i = _coordinatePlane.Size; i < Center.X; i += _coordinatePlane.Size)
+            for (double i = CoordinatePlane.Size; i < Center.X; i += CoordinatePlane.Size)
             {
                 addVerticalHelpLine(Center.X - i, 0, CoordinateCanvas.ActualHeight);
                 addVerticalHelpLine(Center.X + i, 0, CoordinateCanvas.ActualHeight);
             }
 
-            for (double i = _coordinatePlane.Size; i < Center.Y; i += _coordinatePlane.Size)
+            for (double i = CoordinatePlane.Size; i < Center.Y; i += CoordinatePlane.Size)
             {
 
                 addHorizontalHelpLine(Center.Y - i, 0, CoordinateCanvas.ActualWidth);
@@ -115,7 +125,7 @@ namespace Mather.Data.Tasks.Graphics
 
         private void RenderPlots()
         {
-            foreach (var plot in _coordinatePlane.Plots)
+            foreach (var plot in CoordinatePlane.Plots)
             {
                 Shape shape = plot.Draw(0, CoordinateCanvas.ActualWidth);
 
@@ -145,7 +155,7 @@ namespace Mather.Data.Tasks.Graphics
                 // Первое нажатие
                 startPoint = e.GetPosition(CoordinateCanvas);
                 startPoint.Y = Math.Round(startPoint.Y);
-                startPoint = _coordinatePlane.SnapToGrid(startPoint);
+                startPoint = CoordinatePlane.SnapToGrid(startPoint);
 
                 Canvas.SetLeft(_startPointEllipse, startPoint.X - _startPointEllipse.Width / 2);
                 Canvas.SetTop(_startPointEllipse, startPoint.Y - _startPointEllipse.Height / 2);
@@ -157,15 +167,15 @@ namespace Mather.Data.Tasks.Graphics
                 // Второе нажатие
                 endPoint = e.GetPosition(CoordinateCanvas);
                 endPoint.Y = Math.Round(endPoint.Y);
-                endPoint = _coordinatePlane.SnapToGrid(endPoint);
+                endPoint = CoordinatePlane.SnapToGrid(endPoint);
                 if (startPoint.X == endPoint.X)
                 {
                     MessageBox.Show("График не может множество значний.\n\nСоздание линии отменено.", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else if (startPoint != endPoint)
                 {
-                    LinePlot line = new LinePlot(_coordinatePlane, startPoint, endPoint);
-                    _coordinatePlane.Plots.Add(line);
+                    LinePlot line = new LinePlot(CoordinatePlane, startPoint, endPoint);
+                    CoordinatePlane.Plots.Add(line);
                 }
                 else
                 {
@@ -186,7 +196,7 @@ namespace Mather.Data.Tasks.Graphics
         {
             Point cursorPosition = e.GetPosition(CoordinateCanvas);
             cursorPosition.Y = Math.Round(cursorPosition.Y);
-            Point snappedPosition = _coordinatePlane.SnapToGrid(cursorPosition);
+            Point snappedPosition = CoordinatePlane.SnapToGrid(cursorPosition);
 
             Canvas.SetLeft(_previewEllipse, snappedPosition.X - _previewEllipse.Width / 2);
             Canvas.SetTop(_previewEllipse, snappedPosition.Y - _previewEllipse.Height / 2);
@@ -201,10 +211,11 @@ namespace Mather.Data.Tasks.Graphics
             {
                 var index = Shapes.IndexOf(shape);
                 Shapes.RemoveAt(index);
-                _coordinatePlane.Plots.RemoveAt(index);
+                CoordinatePlane.Plots.RemoveAt(index);
             }
             Render();
         }
+
     }
 }
 

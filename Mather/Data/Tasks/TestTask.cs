@@ -20,11 +20,9 @@ namespace Mather.Data.Tasks
         {
             Name = "Тестовое задание";
         }
-        public TestTask(FlowDocument document, ObservableCollection<TestTaskElement> checks, string name = "Тестовое задание") 
+        public TestTask(FlowDocument document, ObservableCollection<TestTaskElement> checks, string name = "Тестовое задание"):base(document, name)
         {
-            Document = document;
             Checks = checks;
-            Name = name;
         }
 
         public override double GetResult()

@@ -66,5 +66,11 @@ namespace Mather.Data.Tasks.Graphics
             if (IsHorizontal) return B;
             return K * x + B;
         }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj is LinePlot plot) { return this.K == plot.K && this.B == plot.B && this.IsHorizontal == plot.IsHorizontal; }
+            return false;
+        }
     }
 }

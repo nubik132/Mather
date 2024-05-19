@@ -11,9 +11,9 @@
             <MenuItem x:Name="DeleteShapeContextMenu" Header="Удалить" Click="DeleteShapeContextMenu_Click" />
         </ContextMenu>
     </UserControl.Resources>
-    <Grid>
+    <Grid >
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
+            <RowDefinition Height="27" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <ToolBar VerticalAlignment="Top">

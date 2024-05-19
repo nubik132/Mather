@@ -36,8 +36,7 @@ namespace Mather
         }
         private void DisplayTask(Task task)
         {
-            if (task is TestTask testTask)
-                TaskControl.ItemsSource = testTask.Checks;
+            TaskControl.Content = task;
         }
         public void LoadStates(ObservableCollection<StateBranch> collection)
         {
@@ -60,6 +59,7 @@ namespace Mather
                     return;
                 }
                 ShowResult();
+                SaveLog();
                 DocumentViewer.Document = new FlowDocument();
             }
         }
@@ -70,6 +70,7 @@ namespace Mather
             IsEnd = true;
             ShowResult();
             SaveLog();
+            DocumentViewer.Document = new FlowDocument();
             this.Close();
         }
         private void ShowResult()
@@ -99,7 +100,7 @@ namespace Mather
             string fileName =
                 "Login " //TODO: add login 
                 + this.Title // task name 
-                + " " 
+                + " "
                 + DateTime.Now.ToString("d-M-yyyy H-m-s")
                 + ".xlg"; //Xaml LoG
             XamlManager.Save(document, Path.Combine(path, fileName));

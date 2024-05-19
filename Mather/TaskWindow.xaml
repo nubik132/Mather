@@ -4,12 +4,22 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Mather"
-        xmlns:states="clr-namespace:Mather.Data.Tasks"
+        xmlns:tasks="clr-namespace:Mather.Data.Tasks"
+        xmlns:graphics="clr-namespace:Mather.Data.Tasks.Graphics"
         mc:Ignorable="d"
         Title="TaskWindow" Height="450" Width="800" Closing="Window_Closing">
     <Window.Resources>
-        <DataTemplate DataType="{x:Type states:TestTaskElement}">
-            <CheckBox Content="{Binding Text}" IsChecked="{Binding Check, Mode=TwoWay}"></CheckBox>
+        <DataTemplate DataType="{x:Type tasks:TestTask}">
+            <ListBox ItemsSource="{Binding Checks}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox Content="{Binding Text}" IsChecked="{Binding Check, Mode=TwoWay}"></CheckBox>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type tasks:PlotTask}" >
+            <graphics:PlotControl CoordinatePlane="{Binding UserPlane}" />
         </DataTemplate>
     </Window.Resources>
     <Grid>
@@ -39,7 +49,7 @@
                 <RowDefinition Height="32" />
             </Grid.RowDefinitions>
             <FlowDocumentScrollViewer x:Name="DocumentViewer"/>
-            <ItemsControl x:Name="TaskControl" ItemsSource="{Binding Task}" Grid.Row="1"/>
+            <ContentPresenter x:Name="TaskControl" Grid.Row="1" VerticalAlignment="Stretch"/>
             <Button Content="Подсчитать" Grid.Row="2" Width="80" Height="24" HorizontalAlignment="Right" Margin="0 0 8 0" Click="Button_Click"/>
         </Grid>
     </Grid>
