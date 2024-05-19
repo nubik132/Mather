@@ -7,7 +7,7 @@
         xmlns:tasks="clr-namespace:Mather.Data.Tasks"
         xmlns:graphics="clr-namespace:Mather.Data.Tasks.Graphics"
         mc:Ignorable="d"
-        Title="TaskWindow" Height="450" Width="800" Closing="Window_Closing">
+        Title="TaskWindow" Closing="Window_Closing" MinWidth="800" MinHeight="450" WindowState="Maximized">
     <Window.Resources>
         <DataTemplate DataType="{x:Type tasks:TestTask}">
             <ListBox ItemsSource="{Binding Checks}">

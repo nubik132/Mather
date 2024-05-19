@@ -28,6 +28,8 @@ namespace Mather.Data.Tasks
             if (AnswerPlane.Plots.Count != UserPlane.Plots.Count) return 0;
             double mark = 0;
 
+            if (UserPlane.Plots.Count == 0) return 0;
+
             var answerArray = AnswerPlane.Plots.ToArray();
             var userArray = UserPlane.Plots.ToArray();
 

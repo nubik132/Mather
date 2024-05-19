@@ -1,5 +1,6 @@
 ﻿using Mather.Data.States;
 using Mather.Data.Tasks;
+using Mather.Data.Tasks.Graphics;
 using Microsoft.Win32;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -25,6 +26,13 @@ namespace Mather
             InitializeComponent();
             this.project = project;
             this.Title = project.Name;
+            var stateBranch = new StateBranch("Графики");
+            stateBranch.States.Add(new TaskState(new ObservableCollection<Task>
+            {
+                new PlotTask(new FlowDocument(), new CoordinatePlane(), "График")
+            },
+                "График"));
+            project.States.Add(stateBranch);
             LoadStates(this.project.States);
         }
 
@@ -213,7 +221,7 @@ namespace Mather
             if (dialogContent != null && dialogContent == true)
             {
                 FlowDocument document = XamlManager.Load<FlowDocument>(dialog.FileName);
-                LogWindow window = new LogWindow(document);   
+                LogWindow window = new LogWindow(document);
                 window.ShowDialog();
             }
         }

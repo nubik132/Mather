@@ -8,7 +8,7 @@
         xmlns:tasks="clr-namespace:Mather.Data.Tasks"
         xmlns:data="clr-namespace:Mather.Data"
         mc:Ignorable="d"
-        Title="TeacherWindow" Height="450" Width="800">
+        Title="TeacherWindow" MinWidth="800" MinHeight="450" WindowState="Maximized">
     <Window.Resources>
         <HierarchicalDataTemplate  x:Key="AbstractStateTemplate" DataType="{x:Type states:AbstractState}" ItemsSource="{Binding States}">
             <TextBlock Text="{Binding Header}"/>
