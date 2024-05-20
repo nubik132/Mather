@@ -19,7 +19,7 @@
             </ListBox>
         </DataTemplate>
         <DataTemplate DataType="{x:Type tasks:PlotTask}" >
-            <graphics:PlotControl CoordinatePlane="{Binding UserPlane}" />
+            <graphics:PlotControl CoordinatePlane="{Binding UserPlane, Mode=TwoWay}" />
         </DataTemplate>
     </Window.Resources>
     <Grid>

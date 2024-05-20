@@ -9,6 +9,6 @@ namespace Mather.Data.Tasks
 {
     public interface ILogable
     {
-        public LogElement GetLog();
+        public Log GetLog();
     }
 }

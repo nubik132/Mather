@@ -9,11 +9,11 @@ using System.Windows.Media;
 
 namespace Mather.Data.Logs
 {
-    public class TaskLog
+    public class TaskLog : Log
     {
         private static readonly SolidColorBrush greenBrush = new SolidColorBrush(Colors.Green);
         private static readonly SolidColorBrush redBrush = new SolidColorBrush(Colors.Red);
-        private ObservableCollection<LogElement> Logs { get; set; }
+        public ObservableCollection<LogElement> Logs { get; set; }
         public TaskLog(IEnumerable<LogElement> logs)
         {
             Logs = new ObservableCollection<LogElement>(logs);
@@ -22,7 +22,7 @@ namespace Mather.Data.Logs
         {
             Logs = new ObservableCollection<LogElement>();
         }
-        public Paragraph ToParagraph()
+        public override Paragraph ToParagraph()
         {
             Paragraph paragraph = new Paragraph();
             foreach (var log in Logs)

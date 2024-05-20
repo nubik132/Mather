@@ -42,8 +42,8 @@ namespace Mather.Data.Tasks.Graphics
         {
             InitializeComponent();
             Shapes = new ObservableCollection<Shape>();
-            CoordinatePlane = new CoordinatePlane();
-            CoordinatePlane.Size = 25;
+            //CoordinatePlane = new CoordinatePlane();
+            //CoordinatePlane.Size = 25;
             _previewEllipse = new Ellipse
             {
                 Width = 5,

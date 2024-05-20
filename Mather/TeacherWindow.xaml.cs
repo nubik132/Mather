@@ -27,9 +27,14 @@ namespace Mather
             this.project = project;
             this.Title = project.Name;
             var stateBranch = new StateBranch("Графики");
+            var plane = new CoordinatePlane
+            {
+                Size = 15
+            };
+            plane.Plots.Add(new LinePlot(plane, 1, 2));
             stateBranch.States.Add(new TaskState(new ObservableCollection<Task>
             {
-                new PlotTask(new FlowDocument(), new CoordinatePlane(), "График")
+                new PlotTask(new FlowDocument(), plane, "График")
             },
                 "График"));
             project.States.Add(stateBranch);

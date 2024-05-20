@@ -7,24 +7,29 @@ namespace Mather.Data.Tasks
 {
     public class PlotTask : Task
     {
+        public CoordinatePlane AnswerPlane { get; set; }
+        public CoordinatePlane UserPlane { get; set; }
         public PlotTask(FlowDocument document, CoordinatePlane answer, string name = "Задание") : base(document, name)
         {
             AnswerPlane = answer;
             UserPlane = new CoordinatePlane();
+            UserPlane.Center = new System.Windows.Point(1, 2);
         }
-
-        public CoordinatePlane AnswerPlane { get; set; }
-        public CoordinatePlane UserPlane { get; set; }
-
-        public override TaskLog GetLog()
+        public override Log GetLog()
         {
-            List<LogElement> logs = new List<LogElement>();
-            logs.Add(new LogElement());
-            return new TaskLog(logs);
+            return AnswerPlane.GetLog();
         }
 
         public override double GetResult()
         {
+            if (AnswerPlane.ComparePlots(UserPlane))
+            {
+                return MAX_MARK;
+            }
+
+            // TODO: remake code at bottom to calculating by logs
+
+
             if (AnswerPlane.Plots.Count != UserPlane.Plots.Count) return 0;
             double mark = 0;
 

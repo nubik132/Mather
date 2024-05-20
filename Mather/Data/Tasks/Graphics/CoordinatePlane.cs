@@ -1,18 +1,21 @@
-﻿using System.Collections.ObjectModel;
+﻿using Mather.Data.Logs;
+using System.Collections.ObjectModel;
 using System.Windows;
 
 namespace Mather.Data.Tasks.Graphics
 {
-    public class CoordinatePlane
+    public class CoordinatePlane : ILogable
     {
-        public ObservableCollection<IPlot> Plots { get; set; }
+        private PlotLog _log;
+        public ObservableCollection<Plot> Plots { get; set; }
         public double Size { get; set; }
         public Point Center { get; set; }
         public CoordinatePlane()
         {
-            Plots = new ObservableCollection<IPlot>();
+            Plots = new ObservableCollection<Plot>();
             Size = 50;
             Center = new Point();
+            _log = new PlotLog();
         }
         public Point ToAbsolute(Point point)
         {
@@ -31,6 +34,36 @@ namespace Mather.Data.Tasks.Graphics
             a.Y = Math.Round(a.Y);
             a = ToAbsolute(a);
             return a;
+        }
+        public bool ComparePlots(CoordinatePlane plane)
+        {
+            if (this.Plots.Count != plane.Plots.Count) return false;
+
+            if (plane.Plots.Count == 0) return false;
+
+            _log.Logs.Clear();
+
+            var answerArray = this.Plots.ToArray();
+            var userArray = plane.Plots.ToArray();
+
+            Array.Sort(answerArray);
+            Array.Sort(userArray);
+
+            var IsEqual = true;
+
+            for (int i = 0; i < answerArray.Length; i++)
+            {
+                var ArePlotsEqual = answerArray[i].Equals(userArray[i]);
+                _log.Logs.Add(answerArray[i].GetLog() as TaskLog);
+                if (!ArePlotsEqual) IsEqual = false;
+            }
+            return IsEqual;
+        }
+
+        public Log GetLog()
+        {
+            _log.PreText = "Координатная плоскость. Графиков: " + Plots.Count.ToString();
+            return _log;
         }
     }
 }

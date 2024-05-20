@@ -45,7 +45,7 @@ namespace Mather
 
         public void LoadTask(ObservableCollection<Task> collection)
         {
-            StatesTreeView.ItemsSource = collection;
+            StatesTreeView.ItemsSource = collection; 
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

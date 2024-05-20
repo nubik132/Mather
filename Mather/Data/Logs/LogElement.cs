@@ -40,8 +40,9 @@ namespace Mather.Data.Logs
             {
                 builder.Append(". Ответ: ");
                 builder.Append(RightAnswer);
-                builder.Append(';');
             }
+            builder.Append(';');
+            builder.Append('\n');
             return builder.ToString();
         }
     }

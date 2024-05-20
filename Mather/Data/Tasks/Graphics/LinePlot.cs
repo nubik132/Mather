@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mather.Data.Logs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,9 +23,10 @@ namespace Mather.Data.Tasks.Graphics
         }
         public double B { get; set; }
         private double k;
-        public LinePlot(CoordinatePlane parent, double k = 1, double b = 0) : base(parent) 
+        public LinePlot(CoordinatePlane parent, double k = 1, double b = 0) : base(parent)
         {
             K = k; B = b;
+            _log = new TaskLog();
         }
         public LinePlot(CoordinatePlane parent, Point a, Point b) : base(parent)
         {
@@ -40,23 +42,17 @@ namespace Mather.Data.Tasks.Graphics
                 K = (b.Y - a.Y) / (b.X - a.X);
                 B = a.Y - k * a.X;
             }
-
+            _log = new TaskLog();
         }
 
         public override Shape Draw(double x1, double x2)
         {
-            Point rel1 = Parent.ToRelative(new Point(x1, 0));
-            Point rel2 = Parent.ToRelative(new Point(x2, 0));
-
-            double y1 = GetY(rel1.X);
-            double y2 = GetY(rel2.X);
-
-            Point abs1 = Parent.ToAbsolute(new Point(0, y1));
-            Point abs2 = Parent.ToAbsolute(new Point(0, y2));
+            double y1 = ConvertX(x1);
+            double y2 = ConvertX(x2);
 
             Line line = new Line();
-            line.X1 = x1; line.Y1 = abs1.Y;
-            line.X2 = x2; line.Y2 = abs2.Y;
+            line.X1 = x1; line.Y1 = y1;
+            line.X2 = x2; line.Y2 = y2;
             line.StrokeThickness = 3;
 
             return line;
@@ -69,7 +65,20 @@ namespace Mather.Data.Tasks.Graphics
 
         public override bool Equals(object? obj)
         {
-            if (obj is LinePlot plot) { return this.K == plot.K && this.B == plot.B && this.IsHorizontal == plot.IsHorizontal; }
+            if (obj is LinePlot plot)
+            {
+                _log.Logs.Clear();
+
+                    _log.Logs.Add(new LogElement("K", plot.K.ToString(), this.K.ToString(), plot.K == this.K));
+                    _log.Logs.Add(new LogElement("B", plot.B.ToString(), this.B.ToString(), plot.B == this.B));
+
+                    _log.Logs.Add(new LogElement("x константа?", 
+                        plot.IsHorizontal ? "Да" : "Нет", 
+                        this.IsHorizontal ? "Да" : "Нет",
+                        this.IsHorizontal == plot.IsHorizontal));
+
+                return this.K == plot.K && this.B == plot.B && this.IsHorizontal == plot.IsHorizontal;
+            }
             return false;
         }
     }
