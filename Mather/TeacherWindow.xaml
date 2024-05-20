@@ -24,36 +24,18 @@
         <data:StateTaskSelector x:Key="TemplateSelector" AbstractStateTemplate="{StaticResource AbstractStateTemplate}" TaskTemplate="{StaticResource TaskTemplate}"/>
 
     </Window.Resources>
-    <Grid>
+    <Grid >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width=".3*" MinWidth="180"/>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width=".7*" MinWidth="400" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="24" />
-            <RowDefinition Height="32" />
+            <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="2">
-            <TreeView ItemTemplateSelector="{StaticResource TemplateSelector}" x:Name="StatesTreeView" x:FieldModifier="public" TreeViewItem.Selected="TreeViewItem_Selected"/>
-        </ScrollViewer>
-        <GridSplitter Width="3" Grid.Column="1" Background="#FF9C9C9C" Grid.RowSpan="2" Grid.Row="1" HorizontalAlignment="Center"/>
-        <RichTextBox x:Name="DocumentEditor" Grid.Column="2" Grid.Row="2"/>
-        <ToolBar HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Grid.Row="1">
-            <Button x:Name="NewGroupStateButton" Content="Новая группа" BorderThickness="1" BorderBrush="#FFC7C7C7" Click="NewGroupStateButton_Click"/>
-            <Separator />
-            <Button x:Name="NewStateButton" Content="+" Width="24" BorderThickness="1" BorderBrush="#FFC7C7C7" Click="NewStateButton_Click"/>
-            <Separator />
-            <Button x:Name="DeleteStateButton" Content="-" Width="24" BorderBrush="#FFC7C7C7" Click="DeleteStateButton_Click" />
-        </ToolBar>
-        <ToolBar HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Grid.Column="2" Grid.Row="1">
-            <Button Content="Жирный" BorderThickness="1" BorderBrush="#FFC7C7C7" Margin="24 0 4 0" Padding="12 0" x:Name="BoldButton" Click="BoldButton_Click"/>
-            <Separator />
-            <Button Content="Курсив"  BorderThickness="1" BorderBrush="#FFC7C7C7" Margin="4 0 4 0" Padding="12 0" x:Name="ItalicButton" Click="ItalicButton_Click"/>
-            <Separator />
-            <Button Content="Подчёкнутый" BorderBrush="#FFC7C7C7" Margin="4 0 4 0" Padding="12 0" x:Name="UnderlineButton" Click="UnderlineButton_Click"/>
-        </ToolBar>
+
+
         <Menu Grid.ColumnSpan="3" BorderBrush="#FF909090" BorderThickness="0,0,0,1">
             <MenuItem Header="Файл">
                 <MenuItem Header="Новый проект" x:Name="NewProjectMenu" Click="NewProjectMenu_Click"/>
@@ -67,5 +49,60 @@
                 <MenuItem Header="Открыть" x:Name="OpenLogMenu" Click="OpenLogMenu_Click"/>
             </MenuItem>
         </Menu>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <ToolBar HorizontalContentAlignment="Stretch" Grid.Row="0">
+                <Button x:Name="NewGroupStateButton" Content="Новая группа" BorderThickness="1" BorderBrush="#FFC7C7C7" Click="NewGroupStateButton_Click"/>
+                <Separator />
+                <Button x:Name="NewStateButton" Content="+" Width="24" BorderThickness="1" BorderBrush="#FFC7C7C7" Click="NewStateButton_Click"/>
+                <Separator />
+                <Button x:Name="DeleteStateButton" Content="-" Width="24" BorderBrush="#FFC7C7C7" Click="DeleteStateButton_Click" />
+            </ToolBar>
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="2">
+                <TreeView ItemTemplateSelector="{StaticResource TemplateSelector}" x:Name="StatesTreeView" x:FieldModifier="public" TreeViewItem.Selected="TreeViewItem_Selected"/>
+            </ScrollViewer>
+        </Grid>
+
+        <GridSplitter Width="3" Grid.Column="1" Background="#FF9C9C9C" Grid.RowSpan="2" Grid.Row="1" HorizontalAlignment="Center"/>
+
+        <TabControl  Grid.Row="1" Grid.Column="2">
+            <TabItem Header="Документ">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <ToolBar HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+                        <Button Content="Жирный" BorderThickness="1" BorderBrush="#FFC7C7C7" Margin="24 0 4 0" Padding="12 0" x:Name="BoldButton" Click="BoldButton_Click"/>
+                        <Separator />
+                        <Button Content="Курсив"  BorderThickness="1" BorderBrush="#FFC7C7C7" Margin="4 0 4 0" Padding="12 0" x:Name="ItalicButton" Click="ItalicButton_Click"/>
+                        <Separator />
+                        <Button Content="Подчёкнутый" BorderBrush="#FFC7C7C7" Margin="4 0 4 0" Padding="12 0" x:Name="UnderlineButton" Click="UnderlineButton_Click"/>
+                    </ToolBar>
+                    <RichTextBox x:Name="DocumentEditor" Grid.Row="1"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Задание">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <ToolBar x:Name="TaskToolBar">
+                        <Button Content="+" Width="24" BorderThickness="1" BorderBrush="#FFC7C7C7" x:Name="AddTaskElementButton"/>
+                        <Separator />
+                        <Button Content="-" Width="24" BorderThickness="1" BorderBrush="#FFC7C7C7" x:Name="RemoveTaskElementButton"/>
+                    </ToolBar>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+
+
     </Grid>
 </Window>
