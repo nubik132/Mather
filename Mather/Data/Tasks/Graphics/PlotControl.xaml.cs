@@ -22,8 +22,7 @@ namespace Mather.Data.Tasks.Graphics
             get { return (CoordinatePlane)GetValue(CoordinatePlaneProperty); }
             set { SetValue(CoordinatePlaneProperty, value); }
         }
-        public ObservableCollection<Shape> Shapes
-        { get; private set; }
+        public ObservableCollection<Shape> Shapes { get; private set; }
         private Point startPoint;
         private Point endPoint;
         private Ellipse _previewEllipse;
@@ -42,7 +41,6 @@ namespace Mather.Data.Tasks.Graphics
         {
             InitializeComponent();
             Shapes = new ObservableCollection<Shape>();
-            //CoordinatePlane = new CoordinatePlane();
             //CoordinatePlane.Size = 25;
             _previewEllipse = new Ellipse
             {

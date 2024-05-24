@@ -79,5 +79,16 @@ namespace Mather.Data.Tasks.Graphics
             }
             return false;
         }
+
+        public override int CompareTo(object? obj)
+        {
+            if(obj is LinePlot plot)
+            {
+                int result = (int)(GetY(1) - plot.GetY(1));
+                if (result == 0) return (int)(GetY(2) - plot.GetY(2));
+                return result;
+            }
+            throw new Exception("При проверке графиков возникла ошибка");
+        }
     }
 }

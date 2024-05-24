@@ -31,12 +31,12 @@ namespace Mather
             var stateBranch = new StateBranch("Графики");
             var plane = new CoordinatePlane
             {
-                Size = 15
+                Size = 15,
             };
             plane.Plots.Add(new LinePlot(plane, 1, 2));
             stateBranch.States.Add(new TaskState(new ObservableCollection<Task>
             {
-                new PlotTask(new FlowDocument(), plane, "График")
+                new PlotTask(new FlowDocument(), "График")
             },
                 "График"));
             project.States.Add(stateBranch);
@@ -119,7 +119,7 @@ namespace Mather
                     case AddTaskWindow.Tasks.Test:
                         return new TestTask();
                     case AddTaskWindow.Tasks.Plot:
-                        return new PlotTask(DocumentFabric.Custom("Новый график"), new CoordinatePlane()); 
+                        return new PlotTask(DocumentFabric.Custom("Новый график")); 
                     case AddTaskWindow.Tasks.Equation:
                         throw new NotImplementedException(); break;
                 }

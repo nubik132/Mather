@@ -4,7 +4,7 @@ using System.Windows.Shapes;
 
 namespace Mather.Data.Tasks.Graphics
 {
-    public abstract class Plot : IPlot, ILogable
+    public abstract class Plot : IPlot, ILogable, IComparable
     {
         public TaskLog Log;
         public abstract Shape Draw(double x1, double x2, Point center, double size);
@@ -24,5 +24,7 @@ namespace Mather.Data.Tasks.Graphics
             Point abs = CoordinatePlane.ToAbsolute(new Point(0, y), center, size);
             return abs.Y;
         }
+
+        public abstract int CompareTo(object? obj);
     }
 }

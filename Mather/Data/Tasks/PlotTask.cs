@@ -9,11 +9,11 @@ namespace Mather.Data.Tasks
     {
         public CoordinatePlane AnswerPlane { get; set; }
         public CoordinatePlane UserPlane { get; set; }
-        public PlotTask(FlowDocument document, CoordinatePlane answer, string name = "Задание") : base(document, name)
+        public PlotTask(FlowDocument document, string name = "Задание") : base(document, name)
         {
-            AnswerPlane = answer;
+            AnswerPlane = new CoordinatePlane();
             UserPlane = new CoordinatePlane();
-            UserPlane.Center = new System.Windows.Point(1, 2);
+            //UserPlane.Center = new System.Windows.Point(1, 2);
         }
         public override Log GetLog()
         {

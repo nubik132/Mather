@@ -7,7 +7,7 @@
         xmlns:states="clr-namespace:Mather.Data.States"
         xmlns:tasks="clr-namespace:Mather.Data.Tasks"
         xmlns:creators="clr-namespace:Mather.Data.Tasks.Creators"
-        xmlns:data="clr-namespace:Mather.Data"
+        xmlns:data="clr-namespace:Mather.Data" xmlns:graphics="clr-namespace:Mather.Data.Tasks.Graphics"
         mc:Ignorable="d"
         Title="TeacherWindow" MinWidth="800" MinHeight="450" WindowState="Maximized">
     <Window.Resources>
@@ -25,6 +25,9 @@
         <data:StateTaskSelector x:Key="TemplateSelector" AbstractStateTemplate="{StaticResource AbstractStateTemplate}" TaskTemplate="{StaticResource TaskTemplate}"/>
         <DataTemplate DataType="{x:Type tasks:TestTask}">
             <creators:TestTaskCreator/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type tasks:PlotTask}">
+            <graphics:PlotControl CoordinatePlane="{Binding AnswerPlane}"/>
         </DataTemplate>
     </Window.Resources>
     <Grid >
