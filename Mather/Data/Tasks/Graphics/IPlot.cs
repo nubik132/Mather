@@ -10,7 +10,7 @@ namespace Mather.Data.Tasks.Graphics
 {
     public interface IPlot
     {
-        public Shape Draw(double x1, double x2);
+        public Shape Draw(double x1, double x2, Point center, double size);
         public double GetY(double x);
     }
 }

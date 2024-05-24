@@ -1,6 +1,7 @@
 ﻿using Mather.Data.Logs;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Shapes;
 
 namespace Mather.Data.Tasks.Graphics
 {
@@ -26,7 +27,15 @@ namespace Mather.Data.Tasks.Graphics
         {
             return new Point((point.X - Center.X) / Size, (Center.Y - point.Y) / Size);
         }
+        public static Point ToAbsolute(Point point, Point center, double size)
+        {
+            return new Point(center.X + point.X * size, center.Y - point.Y * size);
+        }
 
+        public static Point ToRelative(Point point, Point center, double size)
+        {
+            return new Point((point.X - center.X) / size, (center.Y - point.Y) / size);
+        }
         public Point SnapToGrid(Point a)
         {
             a = ToRelative(a);

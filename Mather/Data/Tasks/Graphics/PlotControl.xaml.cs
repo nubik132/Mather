@@ -127,7 +127,7 @@ namespace Mather.Data.Tasks.Graphics
         {
             foreach (var plot in CoordinatePlane.Plots)
             {
-                Shape shape = plot.Draw(0, CoordinateCanvas.ActualWidth);
+                Shape shape = plot.Draw(0, CoordinateCanvas.ActualWidth, CoordinatePlane.Center, CoordinatePlane.Size);
 
                 shape.Stroke = Brushes.LightPink;
 

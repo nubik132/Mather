@@ -23,12 +23,11 @@ namespace Mather.Data.Tasks.Graphics
         }
         public double B { get; set; }
         private double k;
-        public LinePlot(CoordinatePlane parent, double k = 1, double b = 0) : base(parent)
+        public LinePlot(CoordinatePlane parent, double k = 1, double b = 0) : base()
         {
             K = k; B = b;
-            _log = new TaskLog();
         }
-        public LinePlot(CoordinatePlane parent, Point a, Point b) : base(parent)
+        public LinePlot(CoordinatePlane parent, Point a, Point b) : base()
         {
             a = parent.ToRelative(a);
             b = parent.ToRelative(b);
@@ -42,13 +41,12 @@ namespace Mather.Data.Tasks.Graphics
                 K = (b.Y - a.Y) / (b.X - a.X);
                 B = a.Y - k * a.X;
             }
-            _log = new TaskLog();
         }
 
-        public override Shape Draw(double x1, double x2)
+        public override Shape Draw(double x1, double x2, Point center, double size)
         {
-            double y1 = ConvertX(x1);
-            double y2 = ConvertX(x2);
+            double y1 = ConvertX(x1, center, size);
+            double y2 = ConvertX(x2, center, size);
 
             Line line = new Line();
             line.X1 = x1; line.Y1 = y1;
@@ -67,12 +65,12 @@ namespace Mather.Data.Tasks.Graphics
         {
             if (obj is LinePlot plot)
             {
-                _log.Logs.Clear();
+                Log.Logs.Clear();
 
-                    _log.Logs.Add(new LogElement("K", plot.K.ToString(), this.K.ToString(), plot.K == this.K));
-                    _log.Logs.Add(new LogElement("B", plot.B.ToString(), this.B.ToString(), plot.B == this.B));
+                    Log.Logs.Add(new LogElement("K", plot.K.ToString(), this.K.ToString(), plot.K == this.K));
+                    Log.Logs.Add(new LogElement("B", plot.B.ToString(), this.B.ToString(), plot.B == this.B));
 
-                    _log.Logs.Add(new LogElement("x константа?", 
+                    Log.Logs.Add(new LogElement("x константа?", 
                         plot.IsHorizontal ? "Да" : "Нет", 
                         this.IsHorizontal ? "Да" : "Нет",
                         this.IsHorizontal == plot.IsHorizontal));
