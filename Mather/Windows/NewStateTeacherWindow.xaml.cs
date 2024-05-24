@@ -19,7 +19,7 @@ namespace Mather
     /// </summary>
     public partial class NewGroupTeacherWindow : Window
     {
-        public string GroupName {  get; set; }
+        public string Name {  get; set; }
         public NewGroupTeacherWindow()
         {
             InitializeComponent();
@@ -27,7 +27,7 @@ namespace Mather
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            GroupName = NameBox.Text;
+            Name = NameBox.Text;
             this.DialogResult = true;
         }
     }

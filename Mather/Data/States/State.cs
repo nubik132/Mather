@@ -11,7 +11,7 @@ namespace Mather.Data.States
     public class State : AbstractState
     {
         public FlowDocument Document { get; set; }
-        public State() : base() { Document = new FlowDocument(new Paragraph(new Run("Новый документ"))); }
+        public State() : base() { Document = DocumentFabric.Default(); }
         public State(string header, FlowDocument document) : base(header) { Document = document; }
 
         public override void Add(AbstractState state) { }

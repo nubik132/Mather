@@ -1,6 +1,8 @@
-﻿using Mather.Data.States;
+﻿using Mather.Data;
+using Mather.Data.States;
 using Mather.Data.Tasks;
 using Mather.Data.Tasks.Graphics;
+using Mather.Windows;
 using Microsoft.Win32;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -70,31 +72,59 @@ namespace Mather
 
         private void NewStateButton_Click(object sender, RoutedEventArgs e)
         {
-            AddState(new State());
+            if (StatesTreeView.SelectedItem is StateBranch)
+                AddState(new State());
+            else if (StatesTreeView.SelectedItem is TaskState taskState)
+                taskState.Tasks.Add(CreateTask());
         }
 
         private void AddState(AbstractState state)
         {
             if (StatesTreeView.SelectedItem is StateBranch selectedBranch)
             {
-                SetStateHeader();
+                string header = CreateHeader();
+
+                if (header == string.Empty) return;
+
+                state.Header = header;
                 selectedBranch.Add(state);
             }
             else if (StatesTreeView.SelectedItem == null && state is StateBranch branch)
             {
-                SetStateHeader();
+                string header = CreateHeader();
+
+                if (header == string.Empty) return;
+
+                state.Header = header;
                 project.States.Add(branch);
             }
+        }
 
-            void SetStateHeader()
+        public string CreateHeader()
+        {
+            NewGroupTeacherWindow window = new NewGroupTeacherWindow();
+            if (window.ShowDialog() == true)
             {
-                NewGroupTeacherWindow window = new NewGroupTeacherWindow();
-                if (window.ShowDialog() == true)
+                return window.Name;
+            }
+            return string.Empty;
+        }
+        private Task CreateTask()
+        {
+            AddTaskWindow window = new AddTaskWindow();
+            if(window.ShowDialog() == true)
+            {
+                switch (window.SelectedTask)
                 {
-                    state.Header = window.GroupName;
+                    case AddTaskWindow.Tasks.Test:
+                        return new TestTask();
+                    case AddTaskWindow.Tasks.Plot:
+                        return new PlotTask(DocumentFabric.Custom("Новый график"), new CoordinatePlane()); 
+                    case AddTaskWindow.Tasks.Equation:
+                        throw new NotImplementedException(); break;
                 }
             }
-
+            throw new Exception("Не удалось создать задание");
         }
 
         private void DeleteStateButton_Click(object sender, RoutedEventArgs e)
