@@ -8,7 +8,7 @@ namespace Mather.Data.Tasks
     public class TestTaskElement : DependencyObject, ITaskElement
     {
         public static readonly DependencyProperty CheckProperty;
-        public bool Answer { get; }
+        public bool Answer { get; set; }
         public string Text { get; set; }
 
         static TestTaskElement()

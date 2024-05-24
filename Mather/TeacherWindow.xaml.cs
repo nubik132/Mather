@@ -51,10 +51,14 @@ namespace Mather
             if (StatesTreeView.SelectedItem is State state)
             {
                 DocumentEditor.Document = state.Document;
+                TaskTab.Visibility = Visibility.Hidden;
             }
             else if (StatesTreeView.SelectedItem is Task task)
             {
                 DocumentEditor.Document = task.Document;
+                TaskTab.Visibility = Visibility.Visible;
+                TaskControl.Content = task;
+                TaskControl.UpdateLayout();
             }
             e.Handled = true;
         }
