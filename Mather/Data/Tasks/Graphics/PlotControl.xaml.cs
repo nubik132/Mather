@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Net;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -12,6 +13,8 @@ namespace Mather.Data.Tasks.Graphics
     /// </summary>
     public partial class PlotControl : UserControl
     {
+        public enum Plots { Line, Parabola, E }
+        private Plots _selectedPlot;
         public static readonly DependencyProperty CoordinatePlaneProperty;
         static PlotControl()
         {
@@ -139,12 +142,7 @@ namespace Mather.Data.Tasks.Graphics
         {
             Render();
         }
-        private void AddLinePlot_Click(object sender, RoutedEventArgs e)
-        {
-            CoordinateCanvas.MouseLeftButtonDown += AddLine_CoordinateCanvas_MouseLeftButtonDown;
-            AddLineButton.IsEnabled = false;
-            CoordinateCanvas.MouseMove += Canvas_MouseMove;
-        }
+
 
         private void AddLine_CoordinateCanvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -172,7 +170,7 @@ namespace Mather.Data.Tasks.Graphics
                 }
                 else if (startPoint != endPoint)
                 {
-                    LinePlot line = new LinePlot(CoordinatePlane, startPoint, endPoint);
+                    Plot line = ChoosePlot(CoordinatePlane, startPoint, endPoint);
                     CoordinatePlane.Plots.Add(line);
                 }
                 else
@@ -188,6 +186,20 @@ namespace Mather.Data.Tasks.Graphics
                 _previewEllipse.Visibility = Visibility.Hidden;
                 _startPointEllipse.Visibility = Visibility.Hidden;
             }
+        }
+
+        private Plot ChoosePlot(CoordinatePlane coordinatePlane, Point startPoint, Point endPoint)
+        {
+            switch (_selectedPlot)
+            {
+                case Plots.Line:
+                    return new LinePlot(coordinatePlane, startPoint, endPoint);
+                case Plots.Parabola:
+                    return new Parabola(coordinatePlane, startPoint, endPoint);
+                case Plots.E:
+                    throw new NotImplementedException();
+            }
+            return new LinePlot(coordinatePlane, startPoint, endPoint);
         }
 
         private void Canvas_MouseMove(object sender, MouseEventArgs e)
@@ -214,6 +226,30 @@ namespace Mather.Data.Tasks.Graphics
             Render();
         }
 
+        private void CreatePlot()
+        {
+            CoordinateCanvas.MouseLeftButtonDown += AddLine_CoordinateCanvas_MouseLeftButtonDown;
+            AddLineButton.IsEnabled = false;
+            CoordinateCanvas.MouseMove += Canvas_MouseMove;
+        }
+
+        private void AddLinePlot_Click(object sender, RoutedEventArgs e)
+        {
+            _selectedPlot = Plots.Line;
+            CreatePlot();
+        }
+
+        private void AddParabolaButton_Click(object sender, RoutedEventArgs e)
+        {
+            _selectedPlot = Plots.Parabola;
+            CreatePlot();
+        }
+
+        private void AddEButton_Click(object sender, RoutedEventArgs e)
+        {
+            _selectedPlot = Plots.E;
+            CreatePlot();
+        }
     }
 }
 

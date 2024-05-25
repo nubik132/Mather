@@ -23,7 +23,7 @@ namespace Mather.Data.Tasks.Graphics
         }
         public double B { get; set; }
         private double k;
-        public LinePlot(CoordinatePlane parent, double k = 1, double b = 0) : base()
+        public LinePlot(double k = 1, double b = 0) : base()
         {
             K = k; B = b;
         }
@@ -63,6 +63,7 @@ namespace Mather.Data.Tasks.Graphics
 
         public override bool Equals(object? obj)
         {
+            Log.PreText = "Парабола";
             if (obj is LinePlot plot)
             {
                 Log.Logs.Clear();
@@ -75,20 +76,14 @@ namespace Mather.Data.Tasks.Graphics
                         this.IsHorizontal ? "Да" : "Нет",
                         this.IsHorizontal == plot.IsHorizontal));
 
-                return this.K == plot.K && this.B == plot.B && this.IsHorizontal == plot.IsHorizontal;
+                bool result = this.K == plot.K && this.B == plot.B && this.IsHorizontal == plot.IsHorizontal;
+
+                Log.PostText = result ? "Графики совпадают (Правильно)": "Совпадение графиков отсутстует (Не правильно)";
+                return result;
             }
             return false;
         }
 
-        public override int CompareTo(object? obj)
-        {
-            if(obj is LinePlot plot)
-            {
-                int result = (int)(GetY(1) - plot.GetY(1));
-                if (result == 0) return (int)(GetY(2) - plot.GetY(2));
-                return result;
-            }
-            throw new Exception("При проверке графиков возникла ошибка");
-        }
+
     }
 }

@@ -25,6 +25,15 @@ namespace Mather.Data.Tasks.Graphics
             return abs.Y;
         }
 
-        public abstract int CompareTo(object? obj);
+        public int CompareTo(object? obj)
+        {
+            if (obj is Plot plot)
+            {
+                int result = (int)(GetY(1) - plot.GetY(1));
+                if (result == 0) return (int)(GetY(2) - plot.GetY(2));
+                return result;
+            }
+            throw new Exception("При проверке графиков возникла ошибка");
+        }
     }
 }

@@ -25,6 +25,13 @@ namespace Mather.Data.Logs
         public override Paragraph ToParagraph()
         {
             Paragraph paragraph = new Paragraph();
+
+            if (!string.IsNullOrEmpty(PreText))
+            {
+                paragraph.Inlines.Add(PreText);
+                paragraph.Inlines.Add(new LineBreak());
+            }
+
             foreach (var log in Logs)
             {
                 Run run = new Run(log.ToString());
@@ -32,6 +39,13 @@ namespace Mather.Data.Logs
                 paragraph.Inlines.Add(run);
                 paragraph.Inlines.Add(new LineBreak());
             }
+
+            if (!string.IsNullOrEmpty(PostText))
+            {
+                paragraph.Inlines.Add(PostText);
+                paragraph.Inlines.Add(new LineBreak());
+            }
+
             return paragraph;
         }
     }

@@ -33,7 +33,7 @@ namespace Mather
             {
                 Size = 15,
             };
-            plane.Plots.Add(new LinePlot(plane, 1, 2));
+            plane.Plots.Add(new LinePlot(1, 2));
             stateBranch.States.Add(new TaskState(new ObservableCollection<Task>
             {
                 new PlotTask(new FlowDocument(), "График")
@@ -75,7 +75,21 @@ namespace Mather
             if (StatesTreeView.SelectedItem is StateBranch)
                 AddState(new State());
             else if (StatesTreeView.SelectedItem is TaskState taskState)
-                taskState.Tasks.Add(CreateTask());
+            {
+                AddTaskWindow window = new AddTaskWindow();
+                if (window.ShowDialog() == true)
+                {
+                    switch (window.SelectedTask)
+                    {
+                        case AddTaskWindow.Tasks.Test:
+                            taskState.Tasks.Add(new TestTask()); break;
+                        case AddTaskWindow.Tasks.Plot:
+                            taskState.Tasks.Add(new PlotTask(DocumentFabric.Custom("Новый график"))); break;
+                        case AddTaskWindow.Tasks.Equation:
+                            new NotImplementedException(); break;
+                    }
+                }
+            }
         }
 
         private void AddState(AbstractState state)
@@ -108,23 +122,6 @@ namespace Mather
                 return window.Name;
             }
             return string.Empty;
-        }
-        private Task CreateTask()
-        {
-            AddTaskWindow window = new AddTaskWindow();
-            if(window.ShowDialog() == true)
-            {
-                switch (window.SelectedTask)
-                {
-                    case AddTaskWindow.Tasks.Test:
-                        return new TestTask();
-                    case AddTaskWindow.Tasks.Plot:
-                        return new PlotTask(DocumentFabric.Custom("Новый график")); 
-                    case AddTaskWindow.Tasks.Equation:
-                        throw new NotImplementedException(); break;
-                }
-            }
-            throw new Exception("Не удалось создать задание");
         }
 
         private void DeleteStateButton_Click(object sender, RoutedEventArgs e)

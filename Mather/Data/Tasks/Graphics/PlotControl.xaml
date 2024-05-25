@@ -18,6 +18,7 @@
         </Grid.RowDefinitions>
         <ToolBar VerticalAlignment="Top">
             <Button x:Name="AddLineButton" Content="Линейный" Click="AddLinePlot_Click" />
+            <Button x:Name="AddParabolaButton" Content="Парабола" Click="AddParabolaButton_Click" />
         </ToolBar>
         <Canvas x:Name="CoordinateCanvas" Background="White" Grid.Row="1" ClipToBounds="True"/>
     </Grid>
