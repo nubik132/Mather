@@ -36,7 +36,7 @@ namespace Mather.Data.Tasks.Graphics
 
             Path parabolaPath = new Path();
             parabolaPath.Stroke = Brushes.Blue;
-            parabolaPath.StrokeThickness = 2;
+            parabolaPath.StrokeThickness = 3;
             parabolaPath.Data = parabolaGeometry; 
 
             return parabolaPath;

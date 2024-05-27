@@ -190,14 +190,21 @@ namespace Mather.Data.Tasks.Graphics
 
         private Plot ChoosePlot(CoordinatePlane coordinatePlane, Point startPoint, Point endPoint)
         {
-            switch (_selectedPlot)
+            try
             {
-                case Plots.Line:
-                    return new LinePlot(coordinatePlane, startPoint, endPoint);
-                case Plots.Parabola:
-                    return new Parabola(coordinatePlane, startPoint, endPoint);
-                case Plots.E:
-                    throw new NotImplementedException();
+                switch (_selectedPlot)
+                {
+                    case Plots.Line:
+                        return new LinePlot(coordinatePlane, startPoint, endPoint);
+                    case Plots.Parabola:
+                        return new Parabola(coordinatePlane, startPoint, endPoint);
+                    case Plots.E:
+                        return new Exponential(coordinatePlane, startPoint, endPoint);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
             return new LinePlot(coordinatePlane, startPoint, endPoint);
         }
