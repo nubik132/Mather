@@ -17,7 +17,7 @@ namespace Mather.Data.Tasks.Equations.Operations
 
         public override string GetText()
         {
-            return $"({Left.GetText()} ^ {Right.GetText()})";
+            return $"({Left.GetText()}^{Right.GetText()})";
         }
 
         public override EquationElement Calculate()

@@ -17,7 +17,14 @@ namespace Mather.Data.Tasks.Equations.Operations
 
         public override string GetText()
         {
-            return $"({Left.GetText()} * {Right.GetText()})";
+            bool isDotDisplay = !(Left is not Operation && Right is not Operation);
+            StringBuilder sb = new StringBuilder();
+            if (isDotDisplay) sb.Append('(');
+            sb.Append(Left.GetText());
+            if (isDotDisplay) sb.Append(" \\cdot ");
+            sb.Append(Right.GetText());
+            if (isDotDisplay) sb.Append(')');
+            return sb.ToString();
         }
 
         public override EquationElement Calculate()

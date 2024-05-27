@@ -8,6 +8,7 @@ namespace Mather.Data.Tasks.Equations.Operations
 {
     public class Root : Operation
     {
+        public Root(EquationElement left) : base(left, new Constant(2)) { }
         public Root(EquationElement left, EquationElement right) : base(left, right) { }
 
         protected override EquationElement Calculate(Constant left, Constant right)
@@ -17,7 +18,7 @@ namespace Mather.Data.Tasks.Equations.Operations
 
         public override string GetText()
         {
-            return $"({Left.GetText()} root {Right.GetText()})";
+            return $"\\sqrt{{{Left.GetText()}}}";
         }
 
         public override EquationElement Calculate()
