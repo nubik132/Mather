@@ -27,7 +27,7 @@ namespace Mather.Data.Tasks
                 return MAX_MARK;
             }
 
-            // TODO: remake code at bottom to calculating by logs
+            // UNDONE: remake code at bottom to calculating by logs
 
 
             if (AnswerPlane.Plots.Count != UserPlane.Plots.Count) return 0;

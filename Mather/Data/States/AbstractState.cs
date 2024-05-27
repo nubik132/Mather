@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Documents;
 
 namespace Mather.Data.States
-{   // TODO: implement XML Serializtion
+{
     public abstract class AbstractState
     {
         public string Header { get; set; }
