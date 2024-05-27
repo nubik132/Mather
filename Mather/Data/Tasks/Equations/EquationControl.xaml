@@ -8,6 +8,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Background="White">
-        <math:FormulaControl x:Name="Forumula" />
+        <math:FormulaControl x:Name="Formula" />
     </Grid>
 </UserControl>
