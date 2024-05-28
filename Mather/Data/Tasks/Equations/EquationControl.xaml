@@ -6,8 +6,15 @@
              xmlns:local="clr-namespace:Mather.Data.Tasks.Equations"
              xmlns:math="clr-namespace:WpfMath.Controls;assembly=WpfMath"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="White">
-        <math:FormulaControl x:Name="Formula" />
+             d:DesignHeight="450" d:DesignWidth="800" Background="White">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <ToolBar>
+            <Button x:Name="Changer" Content="Сменить" Click="Changer_Click" />
+        </ToolBar>
+        <math:FormulaControl x:Name="Formula" Grid.Row="1"  Margin="8"/>
     </Grid>
 </UserControl>
