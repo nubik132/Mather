@@ -7,14 +7,22 @@
              xmlns:math="clr-namespace:WpfMath.Controls;assembly=WpfMath"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Background="White">
+    <UserControl.Resources>
+        <Style TargetType="Button" x:Key="EquationButtonStyle">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="FontSize" Value="32"/>
+        </Style>
+        <ContextMenu x:Key="OperationContextMenu">
+            <MenuItem Header="Добавить" Click="AddOperationContext_Click" />
+            <MenuItem Header="Удалить" Click="RemoveOperationContext_Click" />
+        </ContextMenu>
+    </UserControl.Resources>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="1*"/>
-        </Grid.RowDefinitions>
-        <ToolBar>
-            <Button x:Name="Changer" Content="Сменить" Click="Changer_Click" />
-        </ToolBar>
-        <math:FormulaControl x:Name="Formula" Grid.Row="1"  Margin="8"/>
+        <StackPanel >
+            <StackPanel Orientation="Horizontal" x:Name="EquationPanel" Margin="10"/>
+        </StackPanel>
     </Grid>
 </UserControl>

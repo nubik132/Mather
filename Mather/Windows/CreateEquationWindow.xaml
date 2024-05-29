@@ -1,0 +1,44 @@
+﻿<Window x:Class="Mather.Windows.CreateEquationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Mather.Windows"
+        mc:Ignorable="d"
+        Title="CreateEquationWindow" Height="200" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="32" />
+        </Grid.RowDefinitions>
+        <Grid Margin="32 32 32 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="2*" />
+            </Grid.RowDefinitions>
+            <TextBlock Text="Тип" HorizontalAlignment="Left" VerticalAlignment="Bottom" Visibility="Visible" x:Name="OperationText"/>
+            <ComboBox  VerticalAlignment="Top" x:Name="OperationTypeCombobox" Grid.Row="1" Margin="0 0 16 0" SelectionChanged="OperationTypeCombobox_SelectionChanged">
+                <ComboBoxItem Content="Сложение" />
+                <ComboBoxItem Content="Вычитание" />
+                <ComboBoxItem Content="Умножение" />
+                <ComboBoxItem Content="Деление" />
+                <ComboBoxItem Content="Возведение в степень" />
+                <ComboBoxItem Content="Корень" />
+                <ComboBoxItem Content="Скобки" />
+            </ComboBox>
+            <TextBlock Text="Тип правой части выражения" VerticalAlignment="Bottom" Grid.Column="1" />
+            <ComboBox  VerticalAlignment="Top" Grid.Row="2" x:Name="OperationElementTypeCombobox" Margin="0 0 16 0" Grid.Column="1" SelectionChanged="OperationElementTypeCombobox_SelectionChanged">
+                <ComboBoxItem Content="Констата" />
+                <ComboBoxItem Content="Переменная" />
+            </ComboBox>
+            <TextBlock Text="Значение" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Column="2"/>
+            <TextBox VerticalAlignment="Top" Grid.Row="1" Margin="0 0 16 0" Grid.Column="2" x:Name="TypeTextbox" />
+        </Grid>
+        <Button Content="OK" Grid.Row="1" Width="48" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 8 0" Click="Button_Click" x:Name="OkButton" IsEnabled="False"/>
+    </Grid>
+</Window>
