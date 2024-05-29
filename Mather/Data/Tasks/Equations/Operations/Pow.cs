@@ -1,18 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Mather.Data.Tasks.Equations.Operations
+﻿namespace Mather.Data.Tasks.Equations.Operations
 {
     public class Pow : Operation
     {
         public Pow(EquationElement left, EquationElement right) : base(left, right) { }
 
-        protected override EquationElement Calculate(Constant left, Constant right)
+        public override EquationElement Calculate()
         {
-            return new Constant(Math.Pow(left.Value, right.Value));
+            Left = Left.Calculate();
+            Right = Right.Calculate();
+
+            if (Right.Equals(Constant.One)) { return Left; }
+            if (Left is Constant leftConst && Right is Constant rightConst)
+            {
+                return new Constant(Math.Pow(leftConst.Value, rightConst.Value));
+            }
+            return this;
         }
 
         public override string GetText()
@@ -20,22 +22,10 @@ namespace Mather.Data.Tasks.Equations.Operations
             return $"{Left.GetText()}^{Right.GetText()}";
         }
 
-        public override EquationElement Calculate()
+        public override bool Equals(object? obj)
         {
-            var leftCalculated = Left.Calculate();
-            var rightCalculated = Right.Calculate();
-
-            if (leftCalculated is Constant leftConst && rightCalculated is Constant rightConst)
-            {
-                return new Constant(Math.Pow(leftConst.Value, rightConst.Value));
-            }
-
-            if (leftCalculated is Variable || rightCalculated is Variable)
-            {
-                return new Pow(leftCalculated, rightCalculated);
-            }
-
-            return this;
+            if (obj is Pow element) return element.Left.Equals(Left) && element.Right.Equals(Right);
+            return false;
         }
     }
 

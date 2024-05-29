@@ -1,18 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Mather.Data.Tasks.Equations.Operations
+﻿namespace Mather.Data.Tasks.Equations.Operations
 {
     public class Multiplication : Operation
     {
         public Multiplication(EquationElement left, EquationElement right) : base(left, right) { }
 
-        protected override EquationElement Calculate(Constant left, Constant right)
+        public override EquationElement Calculate()
         {
-            return new Constant(left.Value * right.Value);
+            Left = Left.Calculate();
+            Right = Right.Calculate();
+
+            if (Left is Constant leftConst && Right is Constant rightConst)
+            {
+                return new Constant(leftConst.Value * rightConst.Value);
+            }
+            if (Left is Variable && Left.Equals(Right))
+            {
+                return new Pow(Left, new Constant(2));
+            }
+            if (Left is Pow powL && Right.Equals(powL.Left))
+            {
+                return new Pow(powL.Left, powL.Right + new Constant(1));
+            }
+            if (Right is Pow powR && Left.Equals(powR.Left))
+            {
+                return new Pow(powR.Left, powR.Right + new Constant(1));
+            }
+            if (Left is Pow powLeft && Right is Pow powRight && powLeft.Left.Equals(powRight.Right))
+            {
+                return new Pow(powLeft.Left, powRight.Right + powRight.Right);
+            }
+            return this;
         }
 
         public override string GetText()
@@ -20,22 +37,10 @@ namespace Mather.Data.Tasks.Equations.Operations
             return $"{Left.GetText()} \\cdot {Right.GetText()}";
         }
 
-        public override EquationElement Calculate()
+        public override bool Equals(object? obj)
         {
-            var leftCalculated = Left.Calculate();
-            var rightCalculated = Right.Calculate();
-
-            if (leftCalculated is Constant leftConst && rightCalculated is Constant rightConst)
-            {
-                return new Constant(leftConst.Value * rightConst.Value);
-            }
-
-            if (leftCalculated is Variable || rightCalculated is Variable)
-            {
-                return new Multiplication(leftCalculated, rightCalculated);
-            }
-
-            return this;
+            if (obj is Multiplication element) return element.Left.Equals(Left) && element.Right.Equals(Right);
+            return false;
         }
     }
 }
