@@ -1,20 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Mather.Data.Tasks.Equations.Operations;
 
 namespace Mather.Data.Tasks.Equations
 {
-    public class Equation
+    public class Equation : Operation
     {
-        public EquationElement Left { get; set; }
-        public EquationElement Right { get; set; }
-
-        public Equation(EquationElement left, EquationElement right)
+        public Equation(EquationElement left, EquationElement right) : base(left, right)
         {
-            Left = left;
-            Right = right;
         }
 
         public bool Solve()
@@ -22,7 +13,14 @@ namespace Mather.Data.Tasks.Equations
             return Math.Abs(((Constant)Left.Calculate()).Value - ((Constant)Right.Calculate()).Value) < 1e-6; // Допустимая погрешность
         }
 
-        public string GetText()
+        public override EquationElement Calculate()
+        {
+            Left = Left.Calculate();
+            Right = Right.Calculate();
+            return this;
+        }
+
+        public override string GetText()
         {
             return $"{Left.GetText()} = {Right.GetText()}";
         }
