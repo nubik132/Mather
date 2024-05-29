@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Mather.Data.Tasks.Equations
+﻿namespace Mather.Data.Tasks.Equations
 {
     public class Variable : EquationElement
     {
@@ -23,6 +17,12 @@ namespace Mather.Data.Tasks.Equations
         public override string GetText()
         {
             return Name;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj is Variable variable) return variable.Name == Name;
+            return false;
         }
     }
 }
