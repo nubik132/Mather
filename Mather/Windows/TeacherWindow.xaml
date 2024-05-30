@@ -8,6 +8,7 @@
         xmlns:tasks="clr-namespace:Mather.Data.Tasks"
         xmlns:creators="clr-namespace:Mather.Data.Tasks.Creators"
         xmlns:data="clr-namespace:Mather.Data" xmlns:graphics="clr-namespace:Mather.Data.Tasks.Graphics"
+        xmlns:equations="clr-namespace:Mather.Data.Tasks.Equations"
         mc:Ignorable="d"
         Title="TeacherWindow" MinWidth="800" MinHeight="450" WindowState="Maximized">
     <Window.Resources>
@@ -28,6 +29,9 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type tasks:PlotTask}">
             <graphics:PlotControl CoordinatePlane="{Binding AnswerPlane}"/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type tasks:EquationTask}">
+            <creators:EquationTaskCreator />
         </DataTemplate>
     </Window.Resources>
     <Grid >
@@ -63,6 +67,8 @@
             </Grid.RowDefinitions>
             <ToolBar HorizontalContentAlignment="Stretch" Grid.Row="0">
                 <Button x:Name="NewGroupStateButton" Content="Новая группа" BorderThickness="1" BorderBrush="#FFC7C7C7" Click="NewGroupStateButton_Click"/>
+                <Separator />
+                <Button x:Name="NewTaskStateButton" Content="Новое задание" BorderThickness="1" BorderBrush="#FFC7C7C7" Click="NewTaskStateButton_Click"/>
                 <Separator />
                 <Button x:Name="NewStateButton" Content="+" Width="24" BorderThickness="1" BorderBrush="#FFC7C7C7" Click="NewStateButton_Click"/>
                 <Separator />

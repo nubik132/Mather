@@ -13,7 +13,11 @@ namespace Mather.Data.Tasks
         {
             AnswerPlane = new CoordinatePlane();
             UserPlane = new CoordinatePlane();
-            //UserPlane.Center = new System.Windows.Point(1, 2);
+        }
+        public PlotTask() : base(DocumentFabric.Custom("Новый график"), "Графики")
+        {
+            AnswerPlane = new CoordinatePlane();
+            UserPlane = new CoordinatePlane();
         }
         public override Log GetLog()
         {

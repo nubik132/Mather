@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Mather"
         xmlns:tasks="clr-namespace:Mather.Data.Tasks"
         xmlns:graphics="clr-namespace:Mather.Data.Tasks.Graphics"
+        xmlns:equations="clr-namespace:Mather.Data.Tasks.Equations"
         mc:Ignorable="d"
         Title="TaskWindow" Closing="Window_Closing" MinWidth="800" MinHeight="450" WindowState="Maximized">
     <Window.Resources>
@@ -20,6 +21,9 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type tasks:PlotTask}" >
             <graphics:PlotControl CoordinatePlane="{Binding UserPlane, Mode=TwoWay}" />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type tasks:EquationTask}" >
+            <equations:EquationControl Equation="{Binding Equation}" />
         </DataTemplate>
     </Window.Resources>
     <Grid>

@@ -1,6 +1,6 @@
 ﻿using Mather.Data.Tasks.Equations.Operations;
+using Mather.Data.Tasks.Graphics;
 using Mather.Windows;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -12,32 +12,46 @@ namespace Mather.Data.Tasks.Equations
     /// </summary>
     public partial class EquationControl : UserControl
     {
+        public static readonly DependencyProperty EquationProperty;
+        static EquationControl()
+        {
+            EquationProperty = DependencyProperty.Register("Equation", typeof(Equation), typeof(EquationControl));
+        }
+        public Equation Equation
+        {
+            get { return (Equation)GetValue(EquationProperty); }
+            set { SetValue(EquationProperty, value); }
+        }
+
         const double defaultFontSize = 32;
-        private Equation equation;
         private int currentFontSize;
+        public event Action EquationChanged;
+
         public EquationControl()
         {
             InitializeComponent();
 
             // Пример уравнения: 6x / (3 + 2) = x^2
-            equation = new Equation(
-                new Division(
-                    new Multiplication(new Constant(5), new Variable("x")),
-                    new Brackets(new Addition(new Constant(3), new Constant(2)))
-                ),
-                new Pow(new Variable("x"), new Constant(2))
-            );
+            //Equation = new Equation(
+            //    new Division(
+            //        new Multiplication(new Constant(5), new Variable("x")),
+            //        new Brackets(new Addition(new Constant(3), new Constant(2)))
+            //    ),
+            //    new Pow(new Variable("x"), new Constant(2))
+            //);
+        }
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
             DisplayEquation();
         }
-
         private void DisplayEquation()
         {
             EquationPanel.Children.Clear();
 
             var stackPanel = new StackPanel { Orientation = Orientation.Horizontal };
-            AddEquationElementToPanel(equation.Left, stackPanel);
+            AddEquationElementToPanel(Equation.Left, stackPanel);
             stackPanel.Children.Add(new TextBlock { Text = " = ", FontSize = defaultFontSize, VerticalAlignment = VerticalAlignment.Center });
-            AddEquationElementToPanel(equation.Right, stackPanel);
+            AddEquationElementToPanel(Equation.Right, stackPanel);
 
             EquationPanel.Children.Add(stackPanel);
         }
@@ -141,7 +155,9 @@ namespace Mather.Data.Tasks.Equations
                     Text = content,
                     FontSize = fontSize
                 },
-                Style = (Style)Resources["EquationButtonStyle"]
+                Style = (Style)Resources["EquationButtonStyle"],
+                ContextMenu = (ContextMenu)Resources["OperationContextMenu"],
+                Tag = element
             };
             button.Click += (s, e) => OnElementClick(element);
             button.Tag = element;
@@ -195,8 +211,8 @@ namespace Mather.Data.Tasks.Equations
 
         private void ReplaceElementInCurrentEquation(EquationElement oldElement, EquationElement newElement)
         {
-            equation.Left = ReplaceElementRecursive(equation.Left, oldElement, newElement);
-            equation.Right = ReplaceElementRecursive(equation.Right, oldElement, newElement);
+            Equation.Left = ReplaceElementRecursive(Equation.Left, oldElement, newElement);
+            Equation.Right = ReplaceElementRecursive(Equation.Right, oldElement, newElement);
         }
 
         private EquationElement ReplaceElementRecursive(EquationElement current, EquationElement oldElement, EquationElement newElement)
@@ -254,20 +270,21 @@ namespace Mather.Data.Tasks.Equations
         private void AddOperationContext_Click(object sender, RoutedEventArgs e)
         {
             var target = GetTarget(sender as MenuItem);
-            var parent = FindParent(equation, target);
+            var parent = FindParent(Equation, target);
             CreateEquationWindow window = new CreateEquationWindow(target);
             window.ShowDialog();
-            if(window.DialogResult == true)
+            if (window.DialogResult == true)
             {
                 if (parent is Brackets brackets)
                 {
                     brackets.Value = window.Element;
                 }
-                else if(parent is Operation operation)
+                else if (parent is Operation operation)
                 {
-                    if(operation.Left == target) operation.Left = window.Element;
-                    else if(operation.Right == target) operation.Right = window.Element;
+                    if (operation.Left == target) operation.Left = window.Element;
+                    else if (operation.Right == target) operation.Right = window.Element;
                 }
+                EquationChanged?.Invoke();
             }
             DisplayEquation();
         }
@@ -282,9 +299,10 @@ namespace Mather.Data.Tasks.Equations
         private void RemoveOperationContext_Click(object sender, RoutedEventArgs e)
         {
             var target = GetTarget(sender as MenuItem);
-            var parent = FindParent(equation, target) as Operation;
+            var parent = FindParent(Equation, target) as Operation;
             if (parent.Left == target) ReplaceElementInCurrentEquation(parent, parent.Right);
             else if (parent.Right == target) ReplaceElementInCurrentEquation(parent, parent.Left);
+            EquationChanged?.Invoke();
             DisplayEquation();
         }
     }

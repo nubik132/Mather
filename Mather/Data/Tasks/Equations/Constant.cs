@@ -7,10 +7,8 @@ namespace Mather.Data.Tasks.Equations
         public static Constant One { get; } = new Constant(1);
         public double Value { get; set; }
 
-        public Constant(double value)
-        {
-            Value = value;
-        }
+        public Constant(double value) { Value = value; }
+        public Constant() { Value = 1; }
 
         public override EquationElement Calculate()
         {

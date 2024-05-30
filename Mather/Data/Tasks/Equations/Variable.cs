@@ -4,11 +4,8 @@
     {
         public string Name { get; set; }
 
-        public Variable(string name)
-        {
-            Name = name;
-        }
-
+        public Variable(string name) { Name = name; }
+        public Variable() { Name = "x"; }
         public override EquationElement Calculate()
         {
             return this;

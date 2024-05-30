@@ -3,6 +3,7 @@
     public class Addition : Operation
     {
         public Addition(EquationElement left, EquationElement right) : base(left, right) { }
+        public Addition() : base(new Variable(), new Constant()) { }
 
         public override EquationElement Calculate()
         {

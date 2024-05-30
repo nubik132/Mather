@@ -3,6 +3,7 @@
     public class Multiplication : Operation
     {
         public Multiplication(EquationElement left, EquationElement right) : base(left, right) { }
+        public Multiplication() : base(new Variable(), new Constant()) { }
 
         public override EquationElement Calculate()
         {

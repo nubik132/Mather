@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Mather.Data.Tasks.Equations"
              xmlns:math="clr-namespace:WpfMath.Controls;assembly=WpfMath"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Background="White">
+             d:DesignHeight="450" d:DesignWidth="800" Background="White" Loaded="UserControl_Loaded">
     <UserControl.Resources>
         <Style TargetType="Button" x:Key="EquationButtonStyle">
             <Setter Property="Background" Value="Transparent"/>

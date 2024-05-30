@@ -10,5 +10,6 @@
             Left = left;
             Right = right;
         }
+        public Operation() : this(new Variable(), new Constant()) { }
     }
 }

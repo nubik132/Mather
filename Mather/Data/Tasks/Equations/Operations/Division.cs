@@ -3,6 +3,7 @@
     public class Division : Operation
     {
         public Division(EquationElement left, EquationElement right) : base(left, right) { }
+        public Division() : base(new Variable(), new Constant()) { }
 
         public override string GetText()
         {

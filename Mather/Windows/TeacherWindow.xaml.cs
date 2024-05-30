@@ -10,6 +10,7 @@ using System.Reflection.Metadata;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Media;
 using Task = Mather.Data.Tasks.Task;
 
 namespace Mather
@@ -20,7 +21,7 @@ namespace Mather
     public partial class TeacherWindow : Window
     {
         Project project;
-
+        private TreeViewItem selectedBranch;
         public TeacherWindow() : this(new Project()) { }
 
         public TeacherWindow(Project project)
@@ -50,6 +51,8 @@ namespace Mather
 
         private void TreeViewItem_Selected(object sender, RoutedEventArgs e)
         {
+            selectedBranch = e.OriginalSource as TreeViewItem;
+
             if (StatesTreeView.SelectedItem is State state)
             {
                 DocumentEditor.Document = state.Document;
@@ -60,11 +63,22 @@ namespace Mather
                 DocumentEditor.Document = task.Document;
                 TaskTab.Visibility = Visibility.Visible;
                 TaskControl.Content = task;
+                TaskControl.Measure(new Size(Double.PositiveInfinity, Double.PositiveInfinity));
+                TaskControl.Arrange(new Rect(0, 0, TaskControl.DesiredSize.Width, TaskControl.DesiredSize.Height));
                 TaskControl.UpdateLayout();
             }
             e.Handled = true;
         }
+        public ItemsControl GetSelectedTreeViewItemParent(TreeViewItem item)
+        {
+            DependencyObject parent = VisualTreeHelper.GetParent(item);
+            while (!(parent is TreeViewItem || parent is TreeView))
+            {
+                parent = VisualTreeHelper.GetParent(parent);
+            }
 
+            return parent as ItemsControl;
+        }
         private void NewGroupStateButton_Click(object sender, RoutedEventArgs e)
         {
             AddState(new StateBranch());
@@ -79,19 +93,29 @@ namespace Mather
                 AddTaskWindow window = new AddTaskWindow();
                 if (window.ShowDialog() == true)
                 {
+                    string header = CreateHeader();
+                    if (header == string.Empty) return;
+
+                    Task task = new TestTask();
+
                     switch (window.SelectedTask)
                     {
                         case AddTaskWindow.Tasks.Test:
-                            taskState.Tasks.Add(new TestTask()); break;
+                            task = new TestTask(); break;
                         case AddTaskWindow.Tasks.Plot:
-                            taskState.Tasks.Add(new PlotTask(DocumentFabric.Custom("Новый график"))); break;
+                            task = new PlotTask(DocumentFabric.Custom("Новый график")); break;
                         case AddTaskWindow.Tasks.Equation:
-                            new NotImplementedException(); break;
+                            task = new EquationTask(DocumentFabric.Custom("Новое уравнение")); break;
                     }
+                    task.Name = header;
+                    taskState.Tasks.Add(task);
                 }
             }
         }
-
+        private void NewTaskStateButton_Click(object sender, RoutedEventArgs e)
+        {
+            AddState(new TaskState());
+        }
         private void AddState(AbstractState state)
         {
             if (StatesTreeView.SelectedItem is StateBranch selectedBranch)
@@ -114,6 +138,8 @@ namespace Mather
             }
         }
 
+
+
         public string CreateHeader()
         {
             NewGroupTeacherWindow window = new NewGroupTeacherWindow();
@@ -126,12 +152,11 @@ namespace Mather
 
         private void DeleteStateButton_Click(object sender, RoutedEventArgs e)
         {
-            AbstractState? searchedState = StatesTreeView.SelectedItem as AbstractState;
-            if (StatesTreeView?.SelectedItem != null)
+            if (StatesTreeView?.SelectedItem is AbstractState searchedState)
             {
                 foreach (StateBranch branch in project.States)
                 {
-                    if (searchedState == branch)
+                    if (StatesTreeView.SelectedItem == branch)
                     {
                         project.States.Remove(branch);
                         return;
@@ -154,6 +179,13 @@ namespace Mather
                         Cycle(stateBranch);
                     }
                 }
+            }
+
+            if (StatesTreeView?.SelectedItem is Task searchedTask)
+            {
+                var parent = GetSelectedTreeViewItemParent(selectedBranch);
+                var taskState = parent.DataContext as TaskState;
+                taskState.Tasks.Remove(searchedTask);
             }
         }
 
