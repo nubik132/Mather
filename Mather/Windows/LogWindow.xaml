@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Mather"
         mc:Ignorable="d"
-        Title="LogWindow" Height="800" Width="450">
+        Title="Отчёт" Height="800" Width="450">
     <Grid>
         <FlowDocumentScrollViewer x:Name="DocumentViever" />
     </Grid>

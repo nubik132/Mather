@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Mather.Windows"
         mc:Ignorable="d"
-        Title="CreateEquationWindow" Height="200" Width="800">
+        Title="Новач часть уравнения" Height="200" Width="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />
