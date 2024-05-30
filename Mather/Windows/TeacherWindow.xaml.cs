@@ -262,6 +262,44 @@ namespace Mather
                 }
             }
         }
+        private void FontSizeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (DocumentEditor != null && DocumentEditor.Selection != null)
+            {
+                ComboBoxItem selectedItem = (ComboBoxItem)FontSizeComboBox.SelectedItem;
+                if (selectedItem != null)
+                {
+                    double fontSize;
+                    if (double.TryParse(selectedItem.Content.ToString(), out fontSize))
+                    {
+                        DocumentEditor.Selection.ApplyPropertyValue(TextElement.FontSizeProperty, fontSize);
+                    }
+                }
+            }
+        }
+        private void AlignLeftButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (DocumentEditor != null && DocumentEditor.Selection != null)
+            {
+                DocumentEditor.Selection.ApplyPropertyValue(Paragraph.TextAlignmentProperty, TextAlignment.Left);
+            }
+        }
+
+        private void AlignCenterButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (DocumentEditor != null && DocumentEditor.Selection != null)
+            {
+                DocumentEditor.Selection.ApplyPropertyValue(Paragraph.TextAlignmentProperty, TextAlignment.Center);
+            }
+        }
+
+        private void AlignRightButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (DocumentEditor != null && DocumentEditor.Selection != null)
+            {
+                DocumentEditor.Selection.ApplyPropertyValue(Paragraph.TextAlignmentProperty, TextAlignment.Right);
+            }
+        }
 
         private void OpenTaskMenu_Click(object sender, RoutedEventArgs e)
         {

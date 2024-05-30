@@ -97,6 +97,22 @@
                         <Button Content="Курсив"  BorderThickness="1" BorderBrush="#FFC7C7C7" Margin="4 0 4 0" Padding="12 0" x:Name="ItalicButton" Click="ItalicButton_Click"/>
                         <Separator />
                         <Button Content="Подчёкнутый" BorderBrush="#FFC7C7C7" Margin="4 0 4 0" Padding="12 0" x:Name="UnderlineButton" Click="UnderlineButton_Click"/>
+                        <Separator />
+                        <ComboBox x:Name="FontSizeComboBox" Width="100" SelectionChanged="FontSizeComboBox_SelectionChanged">
+                            <ComboBoxItem Content="8" />
+                            <ComboBoxItem Content="12" />
+                            <ComboBoxItem Content="14" />
+                            <ComboBoxItem Content="16" />
+                            <ComboBoxItem Content="20" />
+                            <ComboBoxItem Content="24" />
+                            <ComboBoxItem Content="30" />
+                            <ComboBoxItem Content="36" />
+                            <ComboBoxItem Content="42" />
+                        </ComboBox>
+                        <Separator />
+                        <Button Content="Влево" Margin="4 0 4 0" Padding="12 0" x:Name="AlignLeftButton" Click="AlignLeftButton_Click"/>
+                        <Button Content="Центр" Margin="4 0 4 0" Padding="12 0" x:Name="AlignCenterButton" Click="AlignCenterButton_Click"/>
+                        <Button Content="Вправо" Margin="4 0 4 0" Padding="12 0" x:Name="AlignRightButton" Click="AlignRightButton_Click"/>
                     </ToolBar>
                     <RichTextBox x:Name="DocumentEditor" Grid.Row="1"/>
                 </Grid>
