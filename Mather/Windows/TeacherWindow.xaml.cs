@@ -293,5 +293,11 @@ namespace Mather
                 window.ShowDialog();
             }
         }
+
+        private void CreateProfileMenu_Click(object sender, RoutedEventArgs e)
+        {
+            RegistrationWindow window = new RegistrationWindow();
+            window.ShowDialog();
+        }
     }
 }

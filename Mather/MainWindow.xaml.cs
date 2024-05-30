@@ -1,4 +1,6 @@
 ﻿using Mather.Authorization;
+using Mather.Windows;
+using System.IO;
 using System.Windows;
 
 namespace Mather
@@ -10,9 +12,26 @@ namespace Mather
     {
         public MainWindow()
         {
+            string savePath = Environment.ExpandEnvironmentVariables(@"%appdata%\Mather");
+            if (!Directory.Exists(savePath))
+            {
+                Directory.CreateDirectory(savePath);
+            }
+            var files = Directory.GetFiles(savePath);
+            if (files.Length == 0)
+            {
+                MessageBox.Show("Ни одной чётной записи не существует.\n\nДля продолжения необходимо создать профиль учителя.", "Профилей не существует", MessageBoxButton.OK, MessageBoxImage.Warning);
+                RegistrationWindow window = new RegistrationWindow();
+                window.ShowDialog();
+                if(window.DialogResult == false)
+                {
+                    this.Close();
+                }
+            }
+
             InitializeComponent();
-            Profile profile = new Profile("t", "t", Profile.Type.Teacher);
-            profile.SaveProfile();
+            //Profile profile = new Profile("t", "t", Profile.Type.Teacher);
+            //profile.SaveProfile();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
